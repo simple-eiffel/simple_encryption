@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Cipher Block Chaining mode"/>
+<meta name="author" content="Colin LeMahieu"/>
+<meta name="quote" content="Nothing is so permanent as a temporary government program. - Milton Friedman"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>cbc_encryption Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="cbc_encryption_chart.html">Chart</a>
+<a class="nav class" href="cbc_encryption_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="cbc_encryption"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Cipher Block Chaining mode&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Colin LeMahieu&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">quote</span><span class="esymbol">:</span> <span class="estring">&quot;Nothing is so permanent as a temporary government program. - Milton Friedman&quot;</span>
+
+<span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/cbc_encryption_short.html">CBC_ENCRYPTION</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../eel/cbc_encryption_short.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../eel/cbc_encryption_short.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">target_a</span><span class="esymbol">:</span> <a class="eclass" href="../eel/cbc_target_short.html">CBC_TARGET</a><span class="esymbol">;</span> <span class="elocal">iv</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">iv_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="elocal">iv</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">target_a</span><span class="edot">.</span><a class="efeature" href="../eel/cbc_target_short.html#f_block_size">block_size</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_block_size"></a><a class="efeature" href="../eel/cbc_encryption_short.html#f_block_size">block_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a>
+
+	<a name="f_encrypt_block"></a><a class="efeature" href="../eel/cbc_encryption_short.html#f_encrypt_block">encrypt_block</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<a class="efeature" href="../eel/cbc_encryption_short.html#f_cbc_ready">cbc_ready</a>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_offset</span><span class="esymbol">)</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_offset</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <a class="efeature" href="../eel/cbc_encryption_short.html#f_block_size">block_size</a> <a class="esymbol" href="../base/integer_32_short.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">out_array</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">out_offset</span><span class="esymbol">)</span>
+			<span class="elocal">out_array</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">out_offset</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <a class="efeature" href="../eel/cbc_encryption_short.html#f_block_size">block_size</a> <a class="esymbol" href="../base/integer_32_short.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+
+	<a name="f_cbc_ready"></a><a class="efeature" href="../eel/cbc_encryption_short.html#f_cbc_ready">cbc_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+	
+<span class="ekeyword">invariant</span>
+	<a class="efeature" href="../eel/cbc_encryption_short.html#f_last">last</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/cbc_encryption_short.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../eel/cbc_target_short.html#f_block_size">block_size</a>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/cbc_encryption_short.html">CBC_ENCRYPTION</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="cbc_encryption_chart.html">Chart</a>
+<a class="nav class" href="cbc_encryption_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="cbc_encryption"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

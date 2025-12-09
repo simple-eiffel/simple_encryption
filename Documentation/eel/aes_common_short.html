@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Objects that ..."/>
+<meta name="author" content="Colin LeMahieu"/>
+<meta name="quote" content="Reader, suppose you were an idiot. And suppose you were a member of Congress. But I repeat myself. - Mark Twain"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>aes_common Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="aes_common_chart.html">Chart</a>
+<a class="nav class" href="aes_common_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="aes_common"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Objects that ...&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Colin LeMahieu&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">quote</span><span class="esymbol">:</span> <span class="estring">&quot;Reader, suppose you were an idiot. And suppose you were a member of Congress. But I repeat myself. - Mark Twain&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/aes_common_short.html">AES_COMMON</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_s"></a><a class="efeature" href="../eel/aes_common_short.html#f_s">S</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> The S box</span>
+
+	<a name="f_si"></a><a class="efeature" href="../eel/aes_common_short.html#f_si">Si</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> S inverse box</span>
+
+	<a name="f_inv_sub_bytes"></a><a class="efeature" href="../eel/aes_common_short.html#f_inv_sub_bytes">inv_sub_bytes</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a>
+		<span class="ekeyword">ensure</span>
+			<span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_si">Si</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+			<span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_si">Si</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+			<span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_si">Si</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+			<span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">24</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_si">Si</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">24</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+
+	<a name="f_sub_bytes"></a><a class="efeature" href="../eel/aes_common_short.html#f_sub_bytes">sub_bytes</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a>
+		<span class="ekeyword">ensure</span>
+			<span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_s">S</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+			<span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_s">S</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+			<span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_s">S</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+			<span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">24</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_natural_8">to_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_common_short.html#f_s">S</a> <a class="esymbol" href="../base/special_short.html#f_item">[</a><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">in</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">24</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32_short.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref_short.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../base/special_short.html#f_item">]</a>
+
+	<a name="f_ffmulx"></a><a class="efeature" href="../eel/aes_common_short.html#f_ffmulx">ffmulx</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a>
+
+	<a name="f_m1"></a><a class="efeature" href="../eel/aes_common_short.html#f_m1">M1</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">2155905152</span>
+
+	<a name="f_m2"></a><a class="efeature" href="../eel/aes_common_short.html#f_m2">M2</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">2139062143</span>
+
+	<a name="f_m3"></a><a class="efeature" href="../eel/aes_common_short.html#f_m3">M3</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">27</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_s_box_inverse"></a><a class="efeature" href="../eel/aes_common_short.html#f_s_box_inverse">s_box_inverse</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_s_box_inverse_once"></a><a class="efeature" href="../eel/aes_common_short.html#f_s_box_inverse_once">S_box_inverse_once</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the s-box correct as long as nothing modifies it</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">s_box_inverse</span><span class="esymbol">:</span> <a class="efeature" href="../eel/aes_common_short.html#f_s_box_inverse_once">S_box_inverse_once</a>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/aes_common_short.html">AES_COMMON</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="aes_common_chart.html">Chart</a>
+<a class="nav class" href="aes_common_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="aes_common"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

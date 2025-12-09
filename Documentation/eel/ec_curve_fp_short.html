@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Objects that ..."/>
+<meta name="author" content="Colin LeMahieu"/>
+<meta name="quote" content="Every decent man is ashamed of the government he lives under. - H.L. Mencken"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>ec_curve_fp Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="ec_curve_fp_chart.html">Chart</a>
+<a class="nav class" href="ec_curve_fp_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="ec_curve_fp"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Objects that ...&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Colin LeMahieu&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">quote</span><span class="esymbol">:</span> <span class="estring">&quot;Every decent man is ashamed of the government he lives under. - H.L. Mencken&quot;</span>
+
+<span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/ec_curve_fp_short.html">EC_CURVE_FP</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_q_a_b">make_q_a_b</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p112r1">make_sec_p112r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p112r2">make_sec_p112r2</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p128r1">make_sec_p128r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p128r2">make_sec_p128r2</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p160k1">make_sec_p160k1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p160r1">make_sec_p160r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p160r2">make_sec_p160r2</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p192k1">make_sec_p192k1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p192r1">make_sec_p192r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p224k1">make_sec_p224k1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p224r1">make_sec_p224r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p256k1">make_sec_p256k1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p256r1">make_sec_p256r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p384r1">make_sec_p384r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p521r1">make_sec_p521r1</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p192">make_p192</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p224">make_p224</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p256">make_p256</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p384">make_p384</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p521">make_p521</a>
+
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../eel/ec_field_element_fp_short.html">EC_FIELD_ELEMENT_FP</a><span class="esymbol">}</span>
+	<a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_zero">make_zero</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make_q_a_b"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_q_a_b">make_q_a_b</a> <span class="esymbol">(</span><span class="elocal">q_new</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span><span class="esymbol">;</span> <span class="elocal">a_a</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span><span class="esymbol">;</span> <span class="elocal">b_a</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create an EC over FP from q, a, and b</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> SEC curves</span>
+
+	<a name="f_make_sec_p112r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p112r1">make_sec_p112r1</a>
+
+	<a name="f_make_sec_p112r2"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p112r2">make_sec_p112r2</a>
+
+	<a name="f_make_sec_p128r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p128r1">make_sec_p128r1</a>
+
+	<a name="f_make_sec_p128r2"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p128r2">make_sec_p128r2</a>
+
+	<a name="f_make_sec_p160k1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p160k1">make_sec_p160k1</a>
+
+	<a name="f_make_sec_p160r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p160r1">make_sec_p160r1</a>
+
+	<a name="f_make_sec_p160r2"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p160r2">make_sec_p160r2</a>
+
+	<a name="f_make_sec_p192k1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p192k1">make_sec_p192k1</a>
+
+	<a name="f_make_sec_p192r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p192r1">make_sec_p192r1</a>
+
+	<a name="f_make_sec_p224k1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p224k1">make_sec_p224k1</a>
+
+	<a name="f_make_sec_p224r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p224r1">make_sec_p224r1</a>
+
+	<a name="f_make_sec_p256k1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p256k1">make_sec_p256k1</a>
+
+	<a name="f_make_sec_p256r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p256r1">make_sec_p256r1</a>
+
+	<a name="f_make_sec_p384r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p384r1">make_sec_p384r1</a>
+
+	<a name="f_make_sec_p521r1"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_sec_p521r1">make_sec_p521r1</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make_p192"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p192">make_p192</a>
+
+	<a name="f_make_p224"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p224">make_p224</a>
+
+	<a name="f_make_p256"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p256">make_p256</a>
+
+	<a name="f_make_p384"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p384">make_p384</a>
+
+	<a name="f_make_p521"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_make_p521">make_p521</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_q"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_q">q</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span>
+
+	<a name="f_a"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_a">a</a><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_field_element_fp_short.html">EC_FIELD_ELEMENT_FP</a>
+
+	<a name="f_b"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_b">b</a><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_field_element_fp_short.html">EC_FIELD_ELEMENT_FP</a>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../eel/ec_curve_fp_short.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current equal to other</span>
+		<span class="ekeyword">ensure then</span>
+			<a class="efeature" href="../eel/ec_curve_fp_short.html#f_q">q</a> <span class="esymbol">/~</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../eel/ec_curve_fp_short.html#f_q">q</a> <a class="ekeyword" href="../base/boolean_short.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean_short.html#f_negated">not</a> <span class="ekeyword">Result</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/ec_curve_fp_short.html">EC_CURVE_FP</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="ec_curve_fp_chart.html">Chart</a>
+<a class="nav class" href="ec_curve_fp_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="ec_curve_fp"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

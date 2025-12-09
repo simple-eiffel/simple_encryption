@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Common ancestor for Hash-based message authentication code"/>
+<meta name="eis" content="name=Wikipedia, protocol=URI, src=http://en.wikipedia.org/wiki/Hash-based_message_authentication_code"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>hmac Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hmac_chart.html">Chart</a>
+<a class="nav class" href="hmac_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="hmac"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Common ancestor for Hash-based message authentication code&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">eis</span><span class="esymbol">:</span> <span class="estring">&quot;name=Wikipedia&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;protocol=URI&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;src=</span><a class="estring" href="http://en.wikipedia.org/wiki/Hash-based_message_authentication_code">http://en.wikipedia.org/wiki/Hash-based_message_authentication_code</a><span class="estring">&quot;</span>
+	<span class="eitag">eis</span><span class="esymbol">:</span> <span class="estring">&quot;name=RFC2104&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;protocol=URI&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;src=</span><a class="estring" href="http://tools.ietf.org/html/rfc2104">http://tools.ietf.org/html/rfc2104</a><span class="estring">&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/hmac_short.html">HMAC</a> <span class="esymbol">[</span><span class="egeneric">H</span> <span class="esymbol">-&gt;</span> <a class="eclass" href="../eel/hash_short.html">HASH</a><span class="esymbol">]</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_finish"></a><a class="efeature" href="../eel/hmac_short.html#f_finish">finish</a>
+			<span class="ecomment">--</span><span class="ecomment"> Finish the HMAC computation.</span>
+		<span class="ekeyword">ensure</span>
+			<a class="efeature" href="../eel/hmac_short.html#f_finished">finished</a>
+
+	<a name="f_finished"></a><a class="efeature" href="../eel/hmac_short.html#f_finished">finished</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is HMAC computation completed?</span>
+
+	<a name="f_hmac"></a><a class="efeature" href="../eel/hmac_short.html#f_hmac">hmac</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span>
+			<span class="ecomment">--</span><span class="ecomment"> Computed HMAC value</span>
+
+	<a name="f_reset"></a><a class="efeature" href="../eel/hmac_short.html#f_reset">reset</a>
+		<span class="ekeyword">ensure</span>
+			<a class="ekeyword" href="../base/boolean_short.html#f_negated">not</a> <a class="efeature" href="../eel/hmac_short.html#f_finished">finished</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_byte_sink"></a><a class="efeature" href="../eel/hmac_short.html#f_byte_sink">byte_sink</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/hmac_short.html">HMAC</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hmac_chart.html">Chart</a>
+<a class="nav class" href="hmac_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="hmac"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

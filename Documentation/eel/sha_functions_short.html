@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Summary description for {SHA_FUNCTIONS}."/>
+<meta name="author" content="Colin LeMahieu"/>
+<meta name="quote" content="The war for freedom will never really be won because the price of our freedom is constant vigilance over ourselves and over our Government. - Eleanor Roosevelt"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sha_functions Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sha_functions_chart.html">Chart</a>
+<a class="nav class" href="sha_functions_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="sha_functions"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../eel/sha_functions_short.html">SHA_FUNCTIONS</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Colin LeMahieu&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">quote</span><span class="esymbol">:</span> <span class="estring">&quot;The war for freedom will never really be won because the price of our freedom is constant vigilance over ourselves and over our Government. - Eleanor Roosevelt&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/sha_functions_short.html">SHA_FUNCTIONS</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Padding facilities</span>
+
+	<a name="f_update"></a><a class="efeature" href="../eel/sha_functions_short.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure then</span>
+			<a class="efeature" href="../eel/sha_functions_short.html#f_byte_count">byte_count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../eel/sha_functions_short.html#f_byte_count">byte_count</a> <a class="esymbol" href="../base/natural_64_short.html#f_plus">+</a> <span class="enumber">1</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Length processing facilities</span>
+
+	<a name="f_process_word"></a><a class="efeature" href="../eel/sha_functions_short.html#f_process_word">process_word</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">valid_schedule_offset</span><span class="esymbol">:</span> <a class="efeature" href="../eel/sha_functions_short.html#f_schedule">schedule</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../eel/sha_functions_short.html#f_schedule_offset">schedule_offset</a><span class="esymbol">)</span>
+	<span class="etag">valid_schedule_offset_lower</span><span class="esymbol">:</span> <a class="efeature" href="../eel/sha_functions_short.html#f_schedule_offset">schedule_offset</a> <a class="esymbol" href="../base/comparable_short.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+	<span class="etag">valid_schedule_offset_upper</span><span class="esymbol">:</span> <a class="efeature" href="../eel/sha_functions_short.html#f_schedule_offset">schedule_offset</a> <a class="esymbol" href="../base/comparable_short.html#f_is_less_equal">&lt;=</a> <span class="enumber">15</span>
+	<span class="etag">valid_schedule_lower</span><span class="esymbol">:</span> <a class="efeature" href="../eel/sha_functions_short.html#f_schedule">schedule</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+	<span class="etag">valid_schedule_upper</span><span class="esymbol">:</span> <a class="efeature" href="../eel/sha_functions_short.html#f_schedule">schedule</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">15</span><span class="esymbol">)</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/sha_functions_short.html">SHA_FUNCTIONS</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sha_functions_chart.html">Chart</a>
+<a class="nav class" href="sha_functions_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="sha_functions"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

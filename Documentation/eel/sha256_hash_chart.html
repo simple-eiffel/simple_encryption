@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Summary description for {SHA256_HASH}."/>
+<meta name="author" content=""/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sha256_hash Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="sha256_hash_links.html">Relations</a>
+<a class="nav class" href="sha256_hash_short.html">Contracts</a>
+<span class="nav class goto">Go to: <input name="c" value="sha256_hash"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../eel/sha256_hash_chart.html">SHA256_HASH</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <span class="necluster">eel</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../eel/sha256_hash_chart.html">SHA256_HASH</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../eel/sha256_short.html#f_make">make</a><span class="esymbol">,</span> <a class="efeature" href="../eel/sha256_short.html#f_make_copy">make_copy</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../eel/hash_chart.html">HASH</a><span class="echar">*</span>
+	<a class="eclass" href="../eel/sha256_chart.html">SHA256</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`block_size' is declared in `Current'"><a class="efeature" href="../eel/sha256_hash_short.html#f_block_size">Block_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`bytes' was declared in BYTE_32_BIT_BLOCK_FACILITIES"><a class="efeature" href="../eel/byte_32_bit_block_facilities_short.html#f_bytes">bytes</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`current_out' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_current_out">current_out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`debug_output' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_debug_output">debug_output</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`hash' was declared in HASH"><a class="efeature" href="../eel/hash_short.html#f_hash">hash</a> <span class="esymbol">(</span><span class="elocal">k</span><span class="esymbol">:</span> <span class="neclass">READABLE_INTEGER_X</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+	<span title="`is_equal' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../eel/sha256_hash_chart.html">SHA256_HASH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`output_size' is declared in `Current'"><a class="efeature" href="../eel/sha256_hash_short.html#f_output_size">Output_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`rotate_left_32' was declared in ROTATE_FACILITIES"><a class="efeature" href="../eel/rotate_facilities_short.html#f_rotate_left_32">rotate_left_32</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_chart.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_chart.html">NATURAL_32</a></span>
+	<span title="`rotate_right_32' was declared in ROTATE_FACILITIES"><a class="efeature" href="../eel/rotate_facilities_short.html#f_rotate_right_32">rotate_right_32</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_chart.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_chart.html">NATURAL_32</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`current_final' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_current_final">current_final</a> <span class="esymbol">(</span><span class="elocal">output</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_chart.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`do_final' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_do_final">do_final</a> <span class="esymbol">(</span><span class="elocal">output</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_chart.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_off</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`make' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_make">make</a></span>
+	<span title="`make_copy' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_make_copy">make_copy</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../eel/sha256_hash_chart.html">SHA256_HASH</a><span class="esymbol">)</span></span>
+	<span title="`process_word' was declared in SHA_FUNCTIONS"><a class="efeature" href="../eel/sha_functions_short.html#f_process_word">process_word</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_chart.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`reset' was declared in SHA256"><a class="efeature" href="../eel/sha256_short.html#f_reset">reset</a></span>
+	<span title="`sink_character' was declared in BYTE_FACILITIES"><a class="efeature" href="../eel/byte_facilities_short.html#f_sink_character">sink_character</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_chart.html">CHARACTER_8</a><span class="esymbol">)</span></span>
+	<span title="`sink_natural_32_be' was declared in BYTE_FACILITIES"><a class="efeature" href="../eel/byte_facilities_short.html#f_sink_natural_32_be">sink_natural_32_be</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_chart.html">NATURAL_32</a><span class="esymbol">)</span></span>
+	<span title="`sink_special' was declared in BYTE_FACILITIES"><a class="efeature" href="../eel/byte_facilities_short.html#f_sink_special">sink_special</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_chart.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_lower</span><span class="esymbol">,</span> <span class="elocal">in_upper</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`sink_special_lsb' was declared in BYTE_FACILITIES"><a class="efeature" href="../eel/byte_facilities_short.html#f_sink_special_lsb">sink_special_lsb</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_chart.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_lower</span><span class="esymbol">,</span> <span class="elocal">in_upper</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`sink_string' was declared in BYTE_FACILITIES"><a class="efeature" href="../eel/byte_facilities_short.html#f_sink_string">sink_string</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span></span>
+	<span title="`update' was declared in SHA_FUNCTIONS"><a class="efeature" href="../eel/sha_functions_short.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8_chart.html">NATURAL_8</a><span class="esymbol">)</span></span>
+	<span title="`update_word' was declared in BYTE_32_BIT_BLOCK_FACILITIES"><a class="efeature" href="../eel/byte_32_bit_block_facilities_short.html#f_update_word">update_word</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_chart.html">NATURAL_32</a><span class="esymbol">)</span></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="sha256_hash_links.html">Relations</a>
+<a class="nav class" href="sha256_hash_short.html">Contracts</a>
+<span class="nav class goto">Go to: <input name="c" value="sha256_hash"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

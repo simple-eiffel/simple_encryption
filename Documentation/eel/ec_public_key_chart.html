@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Objects that ..."/>
+<meta name="author" content="Colin LeMahieu"/>
+<meta name="quote" content="It is much more important to kill bad bills than to pass good ones. - Calvin Coolidge"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>ec_public_key Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="ec_public_key_links.html">Relations</a>
+<a class="nav class" href="ec_public_key_short.html">Contracts</a>
+<span class="nav class goto">Go to: <input name="c" value="ec_public_key"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../eel/ec_public_key_chart.html">EC_PUBLIC_KEY</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <span class="necluster">eel</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Objects that ...&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../eel/ec_public_key_short.html#f_make_q_parameters">make_q_parameters</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/debug_output_chart.html">DEBUG_OUTPUT</a><span class="echar">*</span>
+	<a class="eclass" href="../eel/ec_constants_chart.html">EC_CONSTANTS</a><span class="echar">*</span>
+	<a class="eclass" href="../eel/ec_key_parameters_chart.html">EC_KEY_PARAMETERS</a><span class="echar">*</span>
+
+<span class="ekeyword">Queries</span>
+	<span title="`agreement' is declared in `Current'"><a class="efeature" href="../eel/ec_public_key_short.html#f_agreement">agreement</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_private_key_chart.html">EC_PRIVATE_KEY</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+	<span title="`debug_output' is declared in `Current'"><a class="efeature" href="../eel/ec_public_key_short.html#f_debug_output">debug_output</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`four' was declared in CONSTANTS"><a class="efeature" href="../eel/constants_short.html#f_four">four</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+	<span title="`one' was declared in CONSTANTS"><a class="efeature" href="../eel/constants_short.html#f_one">one</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+	<span title="`params' was declared in EC_KEY_PARAMETERS"><a class="efeature" href="../eel/ec_key_parameters_short.html#f_params">params</a><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_domain_parameters_chart.html">EC_DOMAIN_PARAMETERS</a></span>
+	<span title="`q' is declared in `Current'"><a class="efeature" href="../eel/ec_public_key_short.html#f_q">q</a><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_point_chart.html">EC_POINT</a></span>
+	<span title="`three' was declared in CONSTANTS"><a class="efeature" href="../eel/constants_short.html#f_three">three</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+	<span title="`two' was declared in CONSTANTS"><a class="efeature" href="../eel/constants_short.html#f_two">two</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+	<span title="`verify' is declared in `Current'"><a class="efeature" href="../eel/ec_public_key_short.html#f_verify">verify</a> <span class="esymbol">(</span><span class="elocal">message</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span><span class="esymbol">;</span> <span class="elocal">signature</span><span class="esymbol">:</span> <a class="eclass" href="../base/tuple_chart.html">TUPLE</a> <span class="esymbol">[</span><span class="neclass">INTEGER_X</span><span class="esymbol">,</span> <span class="neclass">INTEGER_X</span><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`verify_r_s' is declared in `Current'"><a class="efeature" href="../eel/ec_public_key_short.html#f_verify_r_s">verify_r_s</a> <span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">,</span> <span class="elocal">r</span><span class="esymbol">,</span> <span class="elocal">s</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span><span class="esymbol">;</span> <span class="elocal">curve</span><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_curve_chart.html">EC_CURVE</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`zero' was declared in CONSTANTS"><a class="efeature" href="../eel/constants_short.html#f_zero">zero</a><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`make_q_parameters' is declared in `Current'"><a class="efeature" href="../eel/ec_public_key_short.html#f_make_q_parameters">make_q_parameters</a> <span class="esymbol">(</span><span class="elocal">q_new</span><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_point_chart.html">EC_POINT</a><span class="esymbol">;</span> <span class="elocal">params_new</span><span class="esymbol">:</span> <a class="eclass" href="../eel/ec_domain_parameters_chart.html">EC_DOMAIN_PARAMETERS</a><span class="esymbol">)</span></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="ec_public_key_links.html">Relations</a>
+<a class="nav class" href="ec_public_key_short.html">Contracts</a>
+<span class="nav class goto">Go to: <input name="c" value="ec_public_key"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Summary description for {HASH}."/>
+<meta name="author" content=""/>
+<meta name="eis" content="name=RFC2104, protocol=URI, src=http://www.ietf.org/rfc/rfc2104.txt"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>hash Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hash_chart.html">Chart</a>
+<a class="nav class" href="hash_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="hash"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../eel/hash_short.html">HASH</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">eis</span><span class="esymbol">:</span> <span class="estring">&quot;name=RFC2104&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;protocol=URI&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;src=</span><a class="estring" href="http://www.ietf.org/rfc/rfc2104.txt">http://www.ietf.org/rfc/rfc2104.txt</a><span class="estring">&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/hash_short.html">HASH</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_hash"></a><a class="efeature" href="../eel/hash_short.html#f_hash">hash</a> <span class="esymbol">(</span><span class="elocal">k</span><span class="esymbol">:</span> <span class="neclass">READABLE_INTEGER_X</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="neclass">INTEGER_X</span>
+			<span class="ecomment">--</span><span class="ecomment"> Computed hash value for </span><span class="equoted">k</span>
+
+	<a name="f_block_size"></a><a class="efeature" href="../eel/hash_short.html#f_block_size">block_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> block size of the hash function</span>
+
+	<a name="f_output_size"></a><a class="efeature" href="../eel/hash_short.html#f_output_size">output_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> byte-length of hash outputs</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Operations				</span>
+
+	<a name="f_do_final"></a><a class="efeature" href="../eel/hash_short.html#f_do_final">do_final</a> <span class="esymbol">(</span><span class="elocal">output</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_off</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_offset</span><span class="esymbol">:</span> <span class="elocal">out_off</span> <a class="esymbol" href="../base/comparable_short.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">out_big_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/any_short.html#f_out">out</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8_short.html#f_count">count</a> <a class="esymbol" href="../base/integer_32_short.html#f_minus">-</a> <span class="elocal">out_off</span> <a class="esymbol" href="../base/comparable_short.html#f_is_greater_equal">&gt;=</a> <span class="enumber">32</span>
+
+	<a name="f_reset"></a><a class="efeature" href="../eel/hash_short.html#f_reset">reset</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Byte sinks</span>
+
+	<a name="f_sink_special"></a><a class="efeature" href="../eel/hash_short.html#f_sink_special">sink_special</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_lower</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">in_upper</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_lower</span><span class="esymbol">)</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_upper</span><span class="esymbol">)</span>
+
+	<a name="f_sink_special_lsb"></a><a class="efeature" href="../eel/hash_short.html#f_sink_special_lsb">sink_special_lsb</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_lower</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">in_upper</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_lower</span><span class="esymbol">)</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_upper</span><span class="esymbol">)</span>
+
+	<a name="f_sink_character"></a><a class="efeature" href="../eel/hash_short.html#f_sink_character">sink_character</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_short.html">CHARACTER_8</a><span class="esymbol">)</span>
+
+	<a name="f_sink_natural_32_be"></a><a class="efeature" href="../eel/hash_short.html#f_sink_natural_32_be">sink_natural_32_be</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span>
+
+	<a name="f_sink_string"></a><a class="efeature" href="../eel/hash_short.html#f_sink_string">sink_string</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_short.html">STRING_8</a><span class="esymbol">)</span>
+
+	<a name="f_update"></a><a class="efeature" href="../eel/hash_short.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/hash_short.html">HASH</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hash_chart.html">Chart</a>
+<a class="nav class" href="hash_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="hash"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

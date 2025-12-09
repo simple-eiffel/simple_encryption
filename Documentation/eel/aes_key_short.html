@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 25.02.9.8732 - win64">
+<meta name="description" content="Objects that ..."/>
+<meta name="author" content="Colin LeMahieu"/>
+<meta name="quote" content="The single most exciting thing you encounter in government is competence, because it's so rare. - Daniel Patrick Moynihan (1976)"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>aes_key Contracts</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="aes_key_chart.html">Chart</a>
+<a class="nav class" href="aes_key_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="aes_key"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Objects that ...&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Colin LeMahieu&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">quote</span><span class="esymbol">:</span> <span class="estring">&quot;The single most exciting thing you encounter in government is competence, because it's so rare. - Daniel Patrick Moynihan (1976)&quot;</span>
+
+<span class="ekeyword">class</span> <span class="ekeyword">interface</span>
+	<a class="eclass" href="../eel/aes_key_short.html">AES_KEY</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../eel/aes_key_short.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/aes_key_short.html#f_make_spec_128">make_spec_128</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/aes_key_short.html#f_make_spec_196">make_spec_196</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/aes_key_short.html#f_make_spec_256">make_spec_256</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/aes_key_short.html#f_make_vector_128">make_vector_128</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/aes_key_short.html#f_make_vector_196">make_vector_196</a><span class="esymbol">,</span>
+	<a class="efeature" href="../eel/aes_key_short.html#f_make_vector_256">make_vector_256</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Key creation</span>
+
+	<a name="f_make"></a><a class="efeature" href="../eel/aes_key_short.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">key_a</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_lengths</span><span class="esymbol">:</span> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">16</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">24</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Spec and test vector keys</span>
+
+	<a name="f_make_vector_128"></a><a class="efeature" href="../eel/aes_key_short.html#f_make_vector_128">make_vector_128</a>
+		<span class="ekeyword">ensure</span>
+			<a class="efeature" href="../eel/aes_key_short.html#f_vector_128">vector_128</a>
+
+	<a name="f_make_vector_196"></a><a class="efeature" href="../eel/aes_key_short.html#f_make_vector_196">make_vector_196</a>
+		<span class="ekeyword">ensure</span>
+			<a class="efeature" href="../eel/aes_key_short.html#f_vector_196">vector_196</a>
+
+	<a name="f_make_vector_256"></a><a class="efeature" href="../eel/aes_key_short.html#f_make_vector_256">make_vector_256</a>
+		<span class="ekeyword">ensure</span>
+			<a class="efeature" href="../eel/aes_key_short.html#f_vector_256">vector_256</a>
+
+	<a name="f_make_spec_128"></a><a class="efeature" href="../eel/aes_key_short.html#f_make_spec_128">make_spec_128</a>
+			<span class="ecomment">--</span><span class="ecomment"> Make the FIPS-197 spec 128-bit key</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">spec_schedule</span><span class="esymbol">:</span> <a class="efeature" href="../eel/aes_key_short.html#f_spec_128">spec_128</a>
+
+	<a name="f_make_spec_196"></a><a class="efeature" href="../eel/aes_key_short.html#f_make_spec_196">make_spec_196</a>
+			<span class="ecomment">--</span><span class="ecomment"> Make the FIPS-197 spec 196-bit key</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">spec_schedule</span><span class="esymbol">:</span> <a class="efeature" href="../eel/aes_key_short.html#f_spec_196">spec_196</a>
+
+	<a name="f_make_spec_256"></a><a class="efeature" href="../eel/aes_key_short.html#f_make_spec_256">make_spec_256</a>
+			<span class="ecomment">--</span><span class="ecomment"> Make the FIPS-197 spec 256-bit key</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">spec_schedule</span><span class="esymbol">:</span> <a class="efeature" href="../eel/aes_key_short.html#f_spec_256">spec_256</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> ECB</span>
+
+	<a name="f_ecb_ready"></a><a class="efeature" href="../eel/aes_key_short.html#f_ecb_ready">ecb_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_ecb_encrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_ecb_encrypt">ecb_encrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+
+	<a name="f_ecb_decrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_ecb_decrypt">ecb_decrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> CBC</span>
+
+	<a name="f_cbc_ready"></a><a class="efeature" href="../eel/aes_key_short.html#f_cbc_ready">cbc_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_cbc_encrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_cbc_encrypt">cbc_encrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+
+	<a name="f_cbc_decrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_cbc_decrypt">cbc_decrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> CFB</span>
+
+	<a name="f_cfb_ready"></a><a class="efeature" href="../eel/aes_key_short.html#f_cfb_ready">cfb_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_cfb_encrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_cfb_encrypt">cfb_encrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> OFB</span>
+
+	<a name="f_ofb_ready"></a><a class="efeature" href="../eel/aes_key_short.html#f_ofb_ready">ofb_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_ofb_encrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_ofb_encrypt">ofb_encrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> CTR</span>
+
+	<a name="f_ctr_ready"></a><a class="efeature" href="../eel/aes_key_short.html#f_ctr_ready">ctr_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_ctr_encrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_ctr_encrypt">ctr_encrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Operations</span>
+
+	<a name="f_encrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_encrypt">encrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_offset</span><span class="esymbol">)</span>
+			<span class="elocal">out_array</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">out_offset</span><span class="esymbol">)</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_offset</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <span class="enumber">15</span><span class="esymbol">)</span>
+			<span class="elocal">out_array</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">out_offset</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <span class="enumber">15</span><span class="esymbol">)</span>
+
+	<a name="f_decrypt"></a><a class="efeature" href="../eel/aes_key_short.html#f_decrypt">decrypt</a> <span class="esymbol">(</span><span class="elocal">in</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">in_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">out_array</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">out_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_offset</span><span class="esymbol">)</span>
+			<span class="elocal">out_array</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">out_offset</span><span class="esymbol">)</span>
+			<span class="elocal">in</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">in_offset</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <span class="enumber">15</span><span class="esymbol">)</span>
+			<span class="elocal">out_array</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">out_offset</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <span class="enumber">15</span><span class="esymbol">)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment">Implementation</span>
+
+	<a name="f_expand_key_to_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_expand_key_to_schedule">expand_key_to_schedule</a> <span class="esymbol">(</span><span class="elocal">key_a</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_lengths</span><span class="esymbol">:</span> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">16</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">24</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+
+	<a name="f_copy_key_to_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_copy_key_to_schedule">copy_key_to_schedule</a> <span class="esymbol">(</span><span class="elocal">key_a</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_lengths</span><span class="esymbol">:</span> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">16</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">24</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+
+	<a name="f_copy_key_to_made_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_copy_key_to_made_schedule">copy_key_to_made_schedule</a> <span class="esymbol">(</span><span class="elocal">key_a</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">schedule_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">key_word_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_lengths</span><span class="esymbol">:</span> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">16</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">24</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <span class="elocal">key_a</span><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+
+	<a name="f_inv_mcol"></a><a class="efeature" href="../eel/aes_key_short.html#f_inv_mcol">inv_mcol</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a>
+
+	<a name="f_round_constant"></a><a class="efeature" href="../eel/aes_key_short.html#f_round_constant">Round_constant</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> rcon</span>
+
+	<a name="f_rounds"></a><a class="efeature" href="../eel/aes_key_short.html#f_rounds">rounds</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_short.html">INTEGER_32</a>
+		<span class="ekeyword">require</span>
+			<a class="efeature" href="../eel/aes_key_short.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">16</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <a class="efeature" href="../eel/aes_key_short.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">24</span> <a class="ekeyword" href="../base/boolean_short.html#f_disjuncted">or</a> <a class="efeature" href="../eel/aes_key_short.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+		<span class="ekeyword">ensure</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../eel/aes_key_short.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../base/special_short.html#f_count">count</a> <a class="esymbol" href="../base/integer_32_short.html#f_integer_quotient">//</a> <span class="enumber">4</span> <a class="esymbol" href="../base/integer_32_short.html#f_plus">+</a> <span class="enumber">6</span>
+
+	<a name="f_key"></a><a class="efeature" href="../eel/aes_key_short.html#f_key">key</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8_short.html">NATURAL_8</a><span class="esymbol">]</span>
+
+	<a name="f_sub_word"></a><a class="efeature" href="../eel/aes_key_short.html#f_sub_word">sub_word</a> <span class="esymbol">(</span><span class="elocal">x_a</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> S-box word substitution</span>
+
+	<a name="f_rot_word"></a><a class="efeature" href="../eel/aes_key_short.html#f_rot_word">rot_word</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Rotate left 4 bits</span>
+
+	<a name="f_key_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_key_schedule">key_schedule</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_short.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32_short.html">NATURAL_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> FIPS W</span>
+
+	<a name="f_spec_128_bit_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_spec_128_bit_schedule">spec_128_bit_schedule</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="ecomment">`</span><a class="efeature" href="../eel/aes_key_short.html#f_key_schedule">key_schedule</a><span class="ecomment">`</span><span class="ecomment"> the one defined for the 128-bit spec key in FIPS-197</span>
+
+	<a name="f_spec_196_bit_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_spec_196_bit_schedule">spec_196_bit_schedule</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="ecomment">`</span><a class="efeature" href="../eel/aes_key_short.html#f_key_schedule">key_schedule</a><span class="ecomment">`</span><span class="ecomment"> the one defined for the 196-bit spec key in FIPS-197</span>
+
+	<a name="f_spec_256_bit_schedule"></a><a class="efeature" href="../eel/aes_key_short.html#f_spec_256_bit_schedule">spec_256_bit_schedule</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="ecomment">`</span><a class="efeature" href="../eel/aes_key_short.html#f_key_schedule">key_schedule</a><span class="ecomment">`</span><span class="ecomment"> the one defined for the 256-bit spec key in FIPS-197</span>
+
+	<a name="f_valid_spec_keys"></a><a class="efeature" href="../eel/aes_key_short.html#f_valid_spec_keys">valid_spec_keys</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_valid_spec_keys_once"></a><a class="efeature" href="../eel/aes_key_short.html#f_valid_spec_keys_once">Valid_spec_keys_once</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Test if the key is a spec key</span>
+
+	<a name="f_spec_128"></a><a class="efeature" href="../eel/aes_key_short.html#f_spec_128">spec_128</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+		<span class="ekeyword">ensure</span>
+			<span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean_short.html#f_implication">implies</a> <a class="efeature" href="../eel/aes_key_short.html#f_spec_128_bit_schedule">spec_128_bit_schedule</a>
+
+	<a name="f_spec_196"></a><a class="efeature" href="../eel/aes_key_short.html#f_spec_196">spec_196</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+		<span class="ekeyword">ensure</span>
+			<span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean_short.html#f_implication">implies</a> <a class="efeature" href="../eel/aes_key_short.html#f_spec_196_bit_schedule">spec_196_bit_schedule</a>
+
+	<a name="f_spec_256"></a><a class="efeature" href="../eel/aes_key_short.html#f_spec_256">spec_256</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+		<span class="ekeyword">ensure</span>
+			<span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean_short.html#f_implication">implies</a> <a class="efeature" href="../eel/aes_key_short.html#f_spec_256_bit_schedule">spec_256_bit_schedule</a>
+
+	<a name="f_vector_128"></a><a class="efeature" href="../eel/aes_key_short.html#f_vector_128">vector_128</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_vector_196"></a><a class="efeature" href="../eel/aes_key_short.html#f_vector_196">vector_196</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+
+	<a name="f_vector_256"></a><a class="efeature" href="../eel/aes_key_short.html#f_vector_256">vector_256</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_short.html">BOOLEAN</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> </span><span class="esymbol">{</span><a class="eclass" href="../base/debug_output_short.html">DEBUG_OUTPUT</a><span class="esymbol">}</span>
+
+	<a name="f_debug_output"></a><a class="efeature" href="../eel/aes_key_short.html#f_debug_output">debug_output</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_short.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> String that should be displayed in debugger to represent </span><span class="equoted">Current</span><span class="ecomment">.</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">valid_spec_keys_once</span><span class="esymbol">:</span> <a class="efeature" href="../eel/aes_key_short.html#f_valid_spec_keys_once">Valid_spec_keys_once</a>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../eel/aes_key_short.html">AES_KEY</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="aes_key_chart.html">Chart</a>
+<a class="nav class" href="aes_key_links.html">Relations</a>
+<span class="nav class selected">Contracts</span>
+<span class="nav class goto">Go to: <input name="c" value="aes_key"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+
