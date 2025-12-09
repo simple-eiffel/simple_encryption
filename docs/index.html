@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPLE_ENCRYPTION - Documentation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SIMPLE_ENCRYPTION</h1>
+        <p>Simple encryption and hashing for Eiffel</p>
+    </header>
+
+    <nav>
+        <a href="#overview">Overview</a>
+        <a href="#quick-start">Quick Start</a>
+        <a href="#api">API Reference</a>
+        <a href="#security">Security</a>
+        <a href="https://github.com/simple-eiffel/simple_encryption">GitHub</a>
+    </nav>
+
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>SIMPLE_ENCRYPTION provides secure hashing and password management for Eiffel applications, wrapping the ISE EEL library.</p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li>SHA-256 hashing</li>
+                <li>HMAC-SHA256 message authentication</li>
+                <li>PBKDF2 password hashing</li>
+                <li>Secure password verification</li>
+                <li>Random token generation</li>
+            </ul>
+        </section>
+
+        <section id="quick-start">
+            <h2>Quick Start</h2>
+            <pre><code>&lt;library name="simple_encryption" location="$SIMPLE_ENCRYPTION/simple_encryption.ecf"/&gt;</code></pre>
+
+            <h3>Password Hashing</h3>
+            <pre><code>local
+    enc: SIMPLE_ENCRYPTION
+    stored_hash: STRING
+do
+    create enc.make
+
+    -- Hash password for storage
+    stored_hash := enc.hash_password ("user_password")
+    -- Returns: salt$iterations$hash
+
+    -- Verify password
+    if enc.verify_password ("user_password", stored_hash) then
+        print ("Access granted%N")
+    end
+end</code></pre>
+
+            <h3>SHA-256 Hashing</h3>
+            <pre><code>hash := enc.sha256 ("data to hash")
+-- Returns 64-character hex string</code></pre>
+        </section>
+
+        <section id="api">
+            <h2>API Reference</h2>
+
+            <h3>Hashing</h3>
+            <table>
+                <tr><th>Feature</th><th>Description</th></tr>
+                <tr><td><code>sha256 (data)</code></td><td>SHA-256 as hex</td></tr>
+                <tr><td><code>sha256_bytes (data)</code></td><td>SHA-256 as bytes</td></tr>
+                <tr><td><code>hmac_sha256 (key, data)</code></td><td>HMAC-SHA256</td></tr>
+            </table>
+
+            <h3>Password Management</h3>
+            <table>
+                <tr><th>Feature</th><th>Description</th></tr>
+                <tr><td><code>hash_password (password)</code></td><td>Secure password hash</td></tr>
+                <tr><td><code>verify_password (password, stored)</code></td><td>Verify password</td></tr>
+                <tr><td><code>pbkdf2_sha256 (...)</code></td><td>Key derivation</td></tr>
+                <tr><td><code>set_pbkdf2_iterations (count)</code></td><td>Set iterations</td></tr>
+            </table>
+
+            <h3>Random Generation</h3>
+            <table>
+                <tr><th>Feature</th><th>Description</th></tr>
+                <tr><td><code>random_bytes (count)</code></td><td>Random bytes</td></tr>
+                <tr><td><code>random_hex (count)</code></td><td>Random hex string</td></tr>
+                <tr><td><code>random_token (length)</code></td><td>URL-safe token</td></tr>
+            </table>
+
+            <h3>Encoding</h3>
+            <table>
+                <tr><th>Feature</th><th>Description</th></tr>
+                <tr><td><code>bytes_to_hex (bytes)</code></td><td>Bytes to hex</td></tr>
+                <tr><td><code>hex_to_bytes (hex)</code></td><td>Hex to bytes</td></tr>
+            </table>
+        </section>
+
+        <section id="security">
+            <h2>Security Notes</h2>
+            <ul>
+                <li>PBKDF2 uses 600,000 iterations by default (OWASP 2025)</li>
+                <li>Password verification uses constant-time comparison</li>
+                <li>Random generation is time-seeded (not cryptographically secure)</li>
+                <li>For production, consider hardware random sources</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024-2025 Larry Rix. MIT License.</p>
+        <p><a href="https://github.com/simple-eiffel/simple_encryption">GitHub</a></p>
+    </footer>
+</body>
+</html>

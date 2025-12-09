@@ -14143,6 +14143,7 @@ extern void F328_7262();
 extern void F328_7263();
 extern EIF_REFERENCE F329_7266();
 extern EIF_REFERENCE F329_7267();
+extern EIF_INTEGER_32 F27_7360();
 
 #ifdef __cplusplus
 }
@@ -28291,6 +28292,7 @@ fnptr egc_frozen_init[] = {
 (fnptr) F328_7263,
 (fnptr) F329_7266,
 (fnptr) F329_7267,
+(fnptr) F27_7360,
 };
 
 int egc_fpatidtab_init[] = {
@@ -42431,6 +42433,7 @@ int egc_fpatidtab_init[] = {
 116,
 0,
 0,
+8,
 };
 
 #ifdef __cplusplus

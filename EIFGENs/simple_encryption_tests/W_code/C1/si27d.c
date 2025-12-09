@@ -96,6 +96,7 @@ static const struct desc_info desc_27[] = {
 	{EIF_GENERIC(egt_26_27), 758, 0xFFFFFFFF},
 	{EIF_GENERIC(egt_27_27), 759, 0xFFFFFFFF},
 	{EIF_NON_GENERIC(0x0245 /*290*/), 760, 0xFFFFFFFF},
+	{EIF_NON_GENERIC(0x0209 /*260*/), 14137, 4},
 };
 void Init27(void)
 {

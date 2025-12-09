@@ -81,6 +81,7 @@ char *names22 [] =
 char *names27 [] =
 {
 "pbkdf2_iterations",
+"random_counter",
 };
 
 char *names32 [] =

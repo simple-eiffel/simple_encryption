@@ -2102,8 +2102,8 @@ extern void egc_einit_init(void);
 void egc_einit_init (void)
 {
 	ccount = 382;
-	eif_nb_org_routines = 7359;
-	eif_nb_features = 14137;
+	eif_nb_org_routines = 7360;
+	eif_nb_features = 14138;
 }
 
 extern void EIF_Minit1(void);

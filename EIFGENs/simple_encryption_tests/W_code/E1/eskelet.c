@@ -304,20 +304,24 @@ extern const char *names27[];
 static const uint32 types27 [] =
 {
 SK_INT32,
+SK_INT32,
 };
 
 static const uint16 attr_flags27 [] =
-{0,};
+{0,0,};
 
 static const EIF_TYPE_INDEX g_atype27_0 [] = {260,0xFFFF};
+static const EIF_TYPE_INDEX g_atype27_1 [] = {260,0xFFFF};
 
 static const EIF_TYPE_INDEX *gtypes27 [] = {
 g_atype27_0,
+g_atype27_1,
 };
 
 static const int32 cn_attr27 [] =
 {
 652,
+5584,
 };
 
 extern const char *names32[];
@@ -23550,8 +23554,8 @@ const struct cnode egc_fsystem_init[] = {
 	NULL
 },
 {
-	(long) 1,
-	(long) 1,
+	(long) 2,
+	(long) 2,
 	"SIMPLE_ENCRYPTION",
 	names27,
 	types27,
