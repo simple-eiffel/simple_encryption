@@ -1,0 +1,174 @@
+
+simple_encryption: system execution failed.
+Following is the set of recorded exceptions:
+
+******************************** Thread exception *****************************
+In thread           Root thread            0x0 (thread id)
+*******************************************************************************
+-------------------------------------------------------------------------------
+Class / Object      Routine                Nature of exception           Effect
+-------------------------------------------------------------------------------
+SHA256              sink_special @1        in.valid_index (in_lower):   
+<00000203709360A8>  (From BYTE_FACILITIES) Precondition violated.        Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   feed_string_to_sha256 @6
+<0000020370936028>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   sha256 @3                                           
+<0000020370936028>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP test_sha256_empty @3                                
+<0000020370933588>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP make @4                                             
+<0000020370933588>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP root's creation                                     
+<0000020370933588>                         Routine failure.              Exit
+-------------------------------------------------------------------------------
+
+simple_encryption: system execution failed.
+Following is the set of recorded exceptions:
+
+******************************** Thread exception *****************************
+In thread           Root thread            0x0 (thread id)
+*******************************************************************************
+-------------------------------------------------------------------------------
+Class / Object      Routine                Nature of exception           Effect
+-------------------------------------------------------------------------------
+ISE_EXCEPTION_MANAGER
+                    developer_raise        known vector: expected equal objects
+  Expected: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+  Actual:   6d970874d0db767a7058798973f22cf6589601edab57996312f2ef7b56e5584d:
+<000001CBDBCCD448>                         Developer exception.          Fail
+-------------------------------------------------------------------------------
+ISE_EXCEPTION_MANAGER
+                    developer_raise        
+<000001CBDBCCD448>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ISE_EXCEPTION_MANAGER
+                    raise @11              
+<000001CBDBCCD448>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+DEVELOPER_EXCEPTION raise @2                                            
+<000001CBDBCCD398>  (From EXCEPTION)       Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP assert @7                                           
+<000001CBDBCC65E8>  (From EQA_ASSERTIONS)  Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP assert_equal @9                                     
+<000001CBDBCC65E8>  (From TEST_SET_BASE)   Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP test_sha256_known_vector @4
+<000001CBDBCC65E8>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP make @5                                             
+<000001CBDBCC65E8>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP root's creation                                     
+<000001CBDBCC65E8>                         Routine failure.              Exit
+-------------------------------------------------------------------------------
+
+simple_encryption: system execution failed.
+Following is the set of recorded exceptions:
+
+******************************** Thread exception *****************************
+In thread           Root thread            0x0 (thread id)
+*******************************************************************************
+-------------------------------------------------------------------------------
+Class / Object      Routine                Nature of exception           Effect
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   pbkdf2_sha256_bytes @23
+                                           index_small_enough:
+<000002196C53CA98>                         Runtime check violated.       Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   pbkdf2_sha256_bytes @23
+<000002196C53CA98>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   pbkdf2_sha256 @5                                    
+<000002196C53CA98>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   hash_password @3                                    
+<000002196C53CA98>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP test_password_hash_verify @4
+<000002196C52F5E8>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP make @8                                             
+<000002196C52F5E8>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP root's creation                                     
+<000002196C52F5E8>                         Routine failure.              Exit
+-------------------------------------------------------------------------------
+
+simple_encryption: system execution failed.
+Following is the set of recorded exceptions:
+
+******************************** Thread exception *****************************
+In thread           Root thread            0x0 (thread id)
+*******************************************************************************
+-------------------------------------------------------------------------------
+Class / Object      Routine                Nature of exception           Effect
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   pbkdf2_sha256_bytes @23
+                                           index_small_enough:
+<00000215C159FA98>                         Runtime check violated.       Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   pbkdf2_sha256_bytes @23
+<00000215C159FA98>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   pbkdf2_sha256 @5                                    
+<00000215C159FA98>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+SIMPLE_ENCRYPTION   hash_password @3                                    
+<00000215C159FA98>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP test_password_hash_verify @4
+<00000215C15925E8>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP make @8                                             
+<00000215C15925E8>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP root's creation                                     
+<00000215C15925E8>                         Routine failure.              Exit
+-------------------------------------------------------------------------------
+
+simple_encryption: system execution failed.
+Following is the set of recorded exceptions:
+
+******************************** Thread exception *****************************
+In thread           Root thread            0x0 (thread id)
+*******************************************************************************
+-------------------------------------------------------------------------------
+Class / Object      Routine                Nature of exception           Effect
+-------------------------------------------------------------------------------
+ISE_EXCEPTION_MANAGER
+                    developer_raise        different randoms:
+<00000218D53ACB78>                         Developer exception.          Fail
+-------------------------------------------------------------------------------
+ISE_EXCEPTION_MANAGER
+                    developer_raise        
+<00000218D53ACB78>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ISE_EXCEPTION_MANAGER
+                    raise @11              
+<00000218D53ACB78>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+DEVELOPER_EXCEPTION raise @2                                            
+<00000218D53ACAC8>  (From EXCEPTION)       Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP assert @7                                           
+<00000218D5BCE408>  (From EQA_ASSERTIONS)  Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP assert_false @2                                     
+<00000218D5BCE408>  (From TEST_SET_BASE)   Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP test_random_bytes @7                                
+<00000218D5BCE408>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP make @10                                            
+<00000218D5BCE408>                         Routine failure.              Fail
+-------------------------------------------------------------------------------
+ENCRYPTION_TEST_APP root's creation                                     
+<00000218D5BCE408>                         Routine failure.              Exit
+-------------------------------------------------------------------------------
