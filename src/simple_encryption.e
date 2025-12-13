@@ -37,7 +37,10 @@ feature -- Settings
 
 feature -- SHA-256 Hashing
 
-	sha256 (a_data: STRING): STRING
+	sha256,
+	hash,
+	digest,
+	checksum (a_data: STRING): STRING
 			-- Compute SHA-256 hash of `a_data' as hex string.
 		require
 			data_not_void: a_data /= Void
@@ -74,7 +77,10 @@ feature -- SHA-256 Hashing
 
 feature -- HMAC-SHA256
 
-	hmac_sha256 (a_key, a_data: STRING): STRING
+	hmac_sha256,
+	sign,
+	mac,
+	authenticate (a_key, a_data: STRING): STRING
 			-- Compute HMAC-SHA256 of `a_data' with `a_key' as hex string.
 		require
 			key_not_void: a_key /= Void
@@ -111,7 +117,9 @@ feature -- HMAC-SHA256
 
 feature -- Password Hashing (PBKDF2)
 
-	hash_password (a_password: STRING): STRING
+	hash_password,
+	secure_password,
+	encrypt_password (a_password: STRING): STRING
 			-- Hash password using PBKDF2-SHA256 with random salt.
 			-- Returns: salt$iterations$hash (all hex-encoded)
 		require
@@ -128,7 +136,9 @@ feature -- Password Hashing (PBKDF2)
 			has_salt: Result.has ('$')
 		end
 
-	verify_password (a_password, a_stored_hash: STRING): BOOLEAN
+	verify_password,
+	check_password,
+	validate_password (a_password, a_stored_hash: STRING): BOOLEAN
 			-- Verify password against stored hash from `hash_password'.
 		require
 			password_not_empty: not a_password.is_empty
@@ -229,7 +239,9 @@ feature -- Password Hashing (PBKDF2)
 
 feature -- Random Generation
 
-	random_bytes (a_count: INTEGER): SPECIAL [NATURAL_8]
+	random_bytes,
+	generate_bytes,
+	secure_random (a_count: INTEGER): SPECIAL [NATURAL_8]
 			-- Generate `a_count' random bytes.
 			-- Note: Uses RANDOM for portable randomness. Not cryptographically secure.
 		require
@@ -274,7 +286,9 @@ feature -- Random Generation
 			result_length: Result.count = a_count * 2
 		end
 
-	random_token (a_length: INTEGER): STRING
+	random_token,
+	generate_token,
+	api_key (a_length: INTEGER): STRING
 			-- Generate URL-safe random token of `a_length' characters.
 		require
 			length_positive: a_length > 0
@@ -301,7 +315,9 @@ feature -- Random Generation
 
 feature -- Encoding Utilities
 
-	bytes_to_hex (a_bytes: SPECIAL [NATURAL_8]): STRING
+	bytes_to_hex,
+	to_hex,
+	hex_encode (a_bytes: SPECIAL [NATURAL_8]): STRING
 			-- Convert bytes to lowercase hex string.
 		require
 			bytes_not_void: a_bytes /= Void
@@ -321,7 +337,9 @@ feature -- Encoding Utilities
 			result_length: Result.count = a_bytes.count * 2
 		end
 
-	hex_to_bytes (a_hex: STRING): SPECIAL [NATURAL_8]
+	hex_to_bytes,
+	from_hex,
+	hex_decode (a_hex: STRING): SPECIAL [NATURAL_8]
 			-- Convert hex string to bytes.
 		require
 			hex_not_void: a_hex /= Void
