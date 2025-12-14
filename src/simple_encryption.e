@@ -253,7 +253,7 @@ feature -- Random Generation
 		do
 			create Result.make_filled (0, a_count)
 			-- Combine multiple entropy sources for better seeding
-			l_seed := (create {TIME}.make_now).fine_second.truncated_to_integer
+			l_seed := (create {SIMPLE_DATE_TIME}.make_now).to_timestamp.to_integer
 			l_seed := l_seed.bit_xor (random_counter)
 			random_counter := random_counter + 1
 			create l_random.set_seed (l_seed)
