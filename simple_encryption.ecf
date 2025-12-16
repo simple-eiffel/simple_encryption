@@ -19,7 +19,8 @@
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
 		<library name="simple_datetime" location="$SIMPLE_EIFFEL/simple_datetime/simple_datetime.ecf"/>
 		<library name="eel" location="$ISE_LIBRARY\contrib\library\text\encryption\eel\eel.ecf"/>
-		<library name="simple_base64" location="$SIMPLE_BASE64\simple_base64.ecf"/>
+		<library name="simple_base64" location="$SIMPLE_EIFFEL/simple_base64/simple_base64.ecf"/>
+		<library name="simple_logger" location="$SIMPLE_EIFFEL/simple_logger/simple_logger.ecf"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
 	<target name="simple_encryption_tests" extends="simple_encryption">

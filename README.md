@@ -24,7 +24,48 @@ Set the environment variable:
 SIMPLE_ENCRYPTION=/path/to/simple_encryption
 ```
 
-## Quick Start
+## Quick Start (Zero-Configuration)
+
+Use `SIMPLE_ENCRYPTION_QUICK` for the simplest possible crypto operations:
+
+```eiffel
+local
+    crypto: SIMPLE_ENCRYPTION_QUICK
+    hash, stored_hash, token, signature: STRING
+do
+    create crypto.make
+
+    -- Hash a password for storage (uses PBKDF2 with random salt)
+    stored_hash := crypto.hash_password ("user-password")
+
+    -- Verify password against stored hash
+    if crypto.verify_password ("user-password", stored_hash) then
+        print ("Login successful!")
+    end
+
+    -- Quick SHA-256 hash
+    hash := crypto.hash ("Hello, World!")
+    -- Also available as: crypto.checksum ("data")
+
+    -- Generate random token (32 hex characters)
+    token := crypto.random_token (32)
+
+    -- Generate random alphanumeric string (good for temp passwords)
+    print (crypto.random_string (8))  -- e.g., "Kp7nXm2Q"
+
+    -- HMAC signature for API requests
+    signature := crypto.sign ("secret-key", "data-to-sign")
+
+    -- Verify HMAC signature
+    if crypto.verify_signature ("secret-key", "data-to-sign", signature) then
+        print ("Signature valid!")
+    end
+end
+```
+
+## Standard API (Full Control)
+
+Use `SIMPLE_ENCRYPTION` for complete control:
 
 ```eiffel
 local
