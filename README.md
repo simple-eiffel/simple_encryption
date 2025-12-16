@@ -16,12 +16,12 @@ Simple encryption and hashing wrapper for ISE EEL library with secure password h
 Add to your ECF file:
 
 ```xml
-<library name="simple_encryption" location="$SIMPLE_ENCRYPTION/simple_encryption.ecf"/>
+<library name="simple_encryption" location="$SIMPLE_EIFFEL/simple_encryption/simple_encryption.ecf"/>
 ```
 
-Set the environment variable:
+Set environment variable (one-time setup for all simple_* libraries):
 ```
-SIMPLE_ENCRYPTION=/path/to/simple_encryption
+SIMPLE_EIFFEL=D:\prod
 ```
 
 ## Quick Start (Zero-Configuration)
