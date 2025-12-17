@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 			-- Create quick encryption facade.
 		do
 			create crypto.make
-			create logger.make ("encryption_quick")
+			create logger.make
 		ensure
 			crypto_exists: crypto /= Void
 		end
