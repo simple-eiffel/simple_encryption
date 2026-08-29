@@ -116,11 +116,23 @@ end
 
 - [API Documentation](https://simple-eiffel.github.io/simple_encryption/)
 
+## Security advisory - 2.0.0 (2026-08-29)
+
+Versions before 2.0.0 had three defects, stated in full in
+[CHANGELOG.md](CHANGELOG.md): PBKDF2 was not the standard algorithm (the
+chain corrupted at the first intermediate value beginning with a zero
+byte - iteration 119 on the standard vector), HMAC-SHA256 returned 31 bytes
+one time in 256, and `secure_random` was a clock-seeded PRNG. All three are
+fixed, the library now runs on Windows CNG where available, and the suite
+carries the RFC vectors that would have caught it. Hashes written by earlier
+versions do not verify and must be re-created.
+
 ## Security Notes
 
 - PBKDF2 uses 600,000 iterations by default (OWASP 2025 recommendation)
 - Password verification uses constant-time comparison
-- Random generation uses time-based seeding (not cryptographically secure)
+- Random generation uses the operating system's CSPRNG (Windows CNG `BCryptGenRandom`, or `/dev/urandom`); there is no pseudo-random fallback
+- On Windows, SHA-256, HMAC-SHA256 and PBKDF2 run on CNG (`bcrypt.dll`); elsewhere the portable Eiffel implementation is used, and both are held to the same known-answer vectors
 
 ## Dependencies
 
