@@ -33,6 +33,7 @@
                 <li>Secure password verification</li>
                 <li>Random token generation from the OS CSPRNG - no PRNG fallback</li>
                 <li>2.0.0: native CNG backend (<code>BCryptHash</code>, <code>BCryptDeriveKeyPBKDF2</code>, <code>BCryptGenRandom</code>); <code>is_native</code> and <code>is_secure_random_available</code> report which path is live</li>
+                <li>2.1.0: DPAPI per-user data protection (<code>dpapi_protect</code> / <code>dpapi_unprotect</code>, <code>CryptProtectData</code> with UI forbidden and optional entropy; <code>is_dpapi_available</code>) — wrong user, wrong entropy, tampered blob and non-Windows all answer <code>Void</code>, never an exception</li>
             </ul>
         </section>
 

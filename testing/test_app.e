@@ -19,6 +19,8 @@ feature {NONE} -- Initialization
 			passed := 0
 			failed := 0
 
+			run_test (agent tests.test_dpapi_round_trip, "test_dpapi_round_trip")
+			run_test (agent tests.test_dpapi_wrong_entropy_and_tamper_fail, "test_dpapi_wrong_entropy_and_tamper_fail")
 			run_test (agent tests.test_sha256_basic, "test_sha256_basic")
 			run_test (agent tests.test_sha256_empty, "test_sha256_empty")
 			run_test (agent tests.test_sha256_known_vector, "test_sha256_known_vector")

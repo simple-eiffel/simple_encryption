@@ -123,4 +123,62 @@ static int senc_pbkdf2_sha256(const unsigned char *pw, int pwlen,
 
 #endif /* platform */
 
+/* ============ DPAPI: per-user data protection (Windows only) ============
+ * Seals bytes to the current Windows user on this machine
+ * (CryptProtectData); only the same user on the same machine unseals them.
+ * Optional entropy binds the blob further. Returns bytes written (<= outcap)
+ * or 0 on ANY failure; the OS buffer is zeroed and freed on every path. */
+#if defined(_WIN32) || defined(EIF_WINDOWS)
+#include <wincrypt.h>
+#pragma comment(lib, "crypt32.lib")
+
+static int senc_dpapi_protect(const unsigned char *in, int inlen,
+                              const unsigned char *entropy, int entlen,
+                              unsigned char *out, int outcap) {
+    DATA_BLOB bin, bent, bout; int n = 0;
+    if (!in || inlen <= 0 || !out || outcap <= 0) return 0;
+    bin.pbData = (BYTE*)in; bin.cbData = (DWORD)inlen;
+    bent.pbData = (BYTE*)entropy; bent.cbData = (DWORD)((entropy && entlen > 0) ? entlen : 0);
+    bout.pbData = NULL; bout.cbData = 0;
+    if (!CryptProtectData(&bin, NULL, (entropy && entlen > 0) ? &bent : NULL,
+                          NULL, NULL, CRYPTPROTECT_UI_FORBIDDEN, &bout)) return 0;
+    if ((int)bout.cbData <= outcap && bout.pbData) { memcpy(out, bout.pbData, bout.cbData); n = (int)bout.cbData; }
+    if (bout.pbData) { SecureZeroMemory(bout.pbData, bout.cbData); LocalFree(bout.pbData); }
+    return n;
+}
+
+static int senc_dpapi_unprotect(const unsigned char *in, int inlen,
+                                const unsigned char *entropy, int entlen,
+                                unsigned char *out, int outcap) {
+    DATA_BLOB bin, bent, bout; int n = 0;
+    if (!in || inlen <= 0 || !out || outcap <= 0) return 0;
+    bin.pbData = (BYTE*)in; bin.cbData = (DWORD)inlen;
+    bent.pbData = (BYTE*)entropy; bent.cbData = (DWORD)((entropy && entlen > 0) ? entlen : 0);
+    bout.pbData = NULL; bout.cbData = 0;
+    if (!CryptUnprotectData(&bin, NULL, (entropy && entlen > 0) ? &bent : NULL,
+                            NULL, NULL, CRYPTPROTECT_UI_FORBIDDEN, &bout)) return 0;
+    if ((int)bout.cbData <= outcap && bout.pbData) { memcpy(out, bout.pbData, bout.cbData); n = (int)bout.cbData; }
+    if (bout.pbData) { SecureZeroMemory(bout.pbData, bout.cbData); LocalFree(bout.pbData); }
+    return n;
+}
+
+static int senc_dpapi_available(void) { return 1; }
+#else
+static int senc_dpapi_protect(const unsigned char *in, int inlen,
+                              const unsigned char *entropy, int entlen,
+                              unsigned char *out, int outcap) {
+    (void)in; (void)inlen; (void)entropy; (void)entlen;
+    if (out && outcap > 0) memset(out, 0, (size_t)outcap);
+    return 0;
+}
+static int senc_dpapi_unprotect(const unsigned char *in, int inlen,
+                                const unsigned char *entropy, int entlen,
+                                unsigned char *out, int outcap) {
+    (void)in; (void)inlen; (void)entropy; (void)entlen;
+    if (out && outcap > 0) memset(out, 0, (size_t)outcap);
+    return 0;
+}
+static int senc_dpapi_available(void) { return 0; }
+#endif
+
 #endif /* SIMPLE_ENCRYPTION_H */
