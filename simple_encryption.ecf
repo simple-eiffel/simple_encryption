@@ -16,6 +16,7 @@
 			<concurrency support="scoop" use="thread"/>
 			<void_safety support="all"/>
 		</capability>
+		<external_include location="$(SIMPLE_EIFFEL)/simple_encryption/Clib"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
 		<library name="simple_datetime" location="$SIMPLE_EIFFEL/simple_datetime/simple_datetime.ecf"/>
 		<library name="eel" location="$ISE_LIBRARY\contrib\library\text\encryption\eel\eel.ecf"/>

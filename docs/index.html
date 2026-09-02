@@ -23,7 +23,7 @@
     <main>
         <section id="overview">
             <h2>Overview</h2>
-            <p>SIMPLE_ENCRYPTION provides secure hashing and password management for Eiffel applications, wrapping the ISE EEL library.</p>
+            <p>SIMPLE_ENCRYPTION provides secure hashing and password management for Eiffel applications: Windows CNG (<code>bcrypt.dll</code>) natively, and a corrected portable path over the ISE EEL primitives elsewhere. <strong>Use 2.0.0 or later</strong> - see the security advisory below.</p>
 
             <h3>Key Features</h3>
             <ul>
@@ -31,7 +31,8 @@
                 <li>HMAC-SHA256 message authentication</li>
                 <li>PBKDF2 password hashing</li>
                 <li>Secure password verification</li>
-                <li>Random token generation</li>
+                <li>Random token generation from the OS CSPRNG - no PRNG fallback</li>
+                <li>2.0.0: native CNG backend (<code>BCryptHash</code>, <code>BCryptDeriveKeyPBKDF2</code>, <code>BCryptGenRandom</code>); <code>is_native</code> and <code>is_secure_random_available</code> report which path is live</li>
             </ul>
         </section>
 
@@ -87,6 +88,9 @@ end</code></pre>
                 <tr><td><code>random_bytes (count)</code></td><td>Random bytes</td></tr>
                 <tr><td><code>random_hex (count)</code></td><td>Random hex string</td></tr>
                 <tr><td><code>random_token (length)</code></td><td>URL-safe token</td></tr>
+                <tr><td><code>secure_random (count)</code></td><td>OS CSPRNG bytes; raises if no OS source exists rather than degrading</td></tr>
+                <tr><td><code>is_secure_random_available</code></td><td>Is an OS entropy source present?</td></tr>
+                <tr><td><code>is_native</code></td><td>Is the CNG backend in use (Windows)?</td></tr>
             </table>
 
             <h3>Encoding</h3>
@@ -102,8 +106,8 @@ end</code></pre>
             <ul>
                 <li>PBKDF2 uses 600,000 iterations by default (OWASP 2025)</li>
                 <li>Password verification uses constant-time comparison</li>
-                <li>Random generation is time-seeded (not cryptographically secure)</li>
-                <li>For production, consider hardware random sources</li>
+                <li><strong>Security advisory, 2.0.0 (2026-08-29):</strong> before 2.0.0, PBKDF2 diverged from RFC 8018 from iteration 119 onward and HMAC-SHA256 dropped a leading zero byte once in 256 (an <code>as_bytes</code> defect in the EEL layer), and random bytes were time-seeded. 2.0.0 fixes all three, verified against RFC 7914 vectors and independent test vectors; hashes made by earlier versions must be regenerated. Full statement in the README and CHANGELOG.</li>
+                <li>Random bytes come from the OS (<code>BCryptGenRandom</code> on Windows, <code>/dev/urandom</code> elsewhere); there is no PRNG fallback</li>
             </ul>
         </section>
     </main>

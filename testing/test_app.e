@@ -31,6 +31,12 @@ feature {NONE} -- Initialization
 			run_test (agent tests.test_random_token, "test_random_token")
 			run_test (agent tests.test_hex_encoding, "test_hex_encoding")
 			run_test (agent tests.test_constant_time_compare, "test_constant_time_compare")
+			run_test (agent tests.test_pbkdf2_rfc_vectors, "test_pbkdf2_rfc_vectors")
+			run_test (agent tests.test_pbkdf2_leading_zero_regression, "test_pbkdf2_leading_zero_regression")
+			run_test (agent tests.test_hmac_leading_zero_regression, "test_hmac_leading_zero_regression")
+			run_test (agent tests.test_sha256_leading_zero, "test_sha256_leading_zero")
+			run_test (agent tests.test_portable_agrees_with_native, "test_portable_agrees_with_native")
+			run_test (agent tests.test_secure_random_is_system_source, "test_secure_random_is_system_source")
 
 			print ("%N========================%N")
 			print ("Results: " + passed.out + " passed, " + failed.out + " failed%N")
