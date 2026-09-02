@@ -10,6 +10,7 @@ Simple encryption and hashing wrapper for ISE EEL library with secure password h
 - Secure password verification
 - Random token generation
 - Hex encoding utilities
+- DPAPI per-user data protection on Windows (`dpapi_protect` / `dpapi_unprotect`: seals bytes to the current user + machine, optional entropy; failures are `Void`, never exceptions)
 
 ## Installation
 

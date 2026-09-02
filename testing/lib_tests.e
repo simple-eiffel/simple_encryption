@@ -21,6 +21,47 @@ feature {NONE} -- Setup
 
 feature -- Tests
 
+	test_dpapi_round_trip
+			-- Sealed bytes come back only through the same user + entropy.
+		local
+			e: SIMPLE_ENCRYPTION
+			b, p: detachable STRING_8
+		do
+			create e.make
+			if e.is_dpapi_available then
+				b := e.dpapi_protect ("the-token-0123456789abcdef", "simple_chat")
+				assert ("sealed and different", attached b as bb and then not bb.same_string ("the-token-0123456789abcdef"))
+				if attached b as bb2 then
+					p := e.dpapi_unprotect (bb2, "simple_chat")
+					assert ("unsealed intact", attached p as pp and then pp.same_string ("the-token-0123456789abcdef"))
+				end
+			else
+				assert ("dpapi not on this platform", True)
+			end
+		end
+
+	test_dpapi_wrong_entropy_and_tamper_fail
+		local
+			e: SIMPLE_ENCRYPTION
+			b: detachable STRING_8
+			l_tampered: STRING_8
+		do
+			create e.make
+			if e.is_dpapi_available then
+				b := e.dpapi_protect ("secret bytes", "right")
+				if attached b as bb then
+					assert ("wrong entropy is void", e.dpapi_unprotect (bb, "wrong") = Void)
+					create l_tampered.make_from_string (bb)
+					l_tampered [l_tampered.count // 2 + 1] := (l_tampered [l_tampered.count // 2 + 1].code.bit_xor (1)).to_character_8
+					assert ("tampered blob is void", e.dpapi_unprotect (l_tampered, "right") = Void)
+				else
+					assert ("protect worked", False)
+				end
+			else
+				assert ("dpapi not on this platform", True)
+			end
+		end
+
 	test_sha256_basic
 			-- Test basic SHA-256 hashing.
 		local

@@ -497,7 +497,123 @@ feature {NONE} -- Implementation
 			end
 		end
 
+feature -- DPAPI (Windows per-user data protection)
+
+	is_dpapi_available: BOOLEAN
+			-- Can this platform seal data to the current user (DPAPI)?
+		do
+			Result := c_senc_dpapi_available = 1
+		end
+
+	dpapi_protect (a_plain: READABLE_STRING_8; a_entropy: READABLE_STRING_8): detachable STRING_8
+			-- `a_plain' (bytes) sealed to the CURRENT WINDOWS USER on this
+			-- machine: only the same user on the same machine unseals it.
+			-- `a_entropy' (may be empty) binds the blob further; present the
+			-- same entropy to `dpapi_unprotect'. Void on any failure -
+			-- nothing partial is ever returned.
+		require
+			something_to_protect: not a_plain.is_empty
+		local
+			l_in, l_ent, l_out: MANAGED_POINTER
+			n: INTEGER
+		do
+			if is_dpapi_available then
+				l_in := buffer_of (a_plain)
+				l_ent := buffer_of (a_entropy)
+				create l_out.make (a_plain.count + Dpapi_overhead)
+				n := c_senc_dpapi_protect (l_in.item, a_plain.count, l_ent.item, a_entropy.count, l_out.item, l_out.count)
+				if n > 0 then
+					Result := bytes_string (l_out, n)
+				end
+			end
+		ensure
+			sealed_or_void: attached Result implies not Result.is_empty
+			never_the_plain_bytes: attached Result implies not Result.same_string (a_plain)
+			nothing_off_windows: not is_dpapi_available implies Result = Void
+		end
+
+	dpapi_unprotect (a_blob: READABLE_STRING_8; a_entropy: READABLE_STRING_8): detachable STRING_8
+			-- The bytes `dpapi_protect' sealed into `a_blob', when the caller
+			-- is the same Windows user on the same machine and `a_entropy'
+			-- matches; Void otherwise (a tampered blob, foreign user, wrong
+			-- entropy - all just Void, never an exception).
+		require
+			something_to_unseal: not a_blob.is_empty
+		local
+			l_in, l_ent, l_out: MANAGED_POINTER
+			n: INTEGER
+		do
+			if is_dpapi_available then
+				l_in := buffer_of (a_blob)
+				l_ent := buffer_of (a_entropy)
+				create l_out.make (a_blob.count.max (1))
+				n := c_senc_dpapi_unprotect (l_in.item, a_blob.count, l_ent.item, a_entropy.count, l_out.item, l_out.count)
+				if n > 0 then
+					Result := bytes_string (l_out, n)
+				end
+			end
+		ensure
+			unsealed_or_void: attached Result implies not Result.is_empty
+			nothing_off_windows: not is_dpapi_available implies Result = Void
+		end
+
+	Dpapi_overhead: INTEGER = 1024
+			-- Room DPAPI's envelope adds beyond the plaintext (generous).
+
+feature {NONE} -- DPAPI buffers
+
+	buffer_of (a_bytes: READABLE_STRING_8): MANAGED_POINTER
+			-- `a_bytes' copied into native memory (one byte spare for empties).
+		local
+			i: INTEGER
+		do
+			create Result.make (a_bytes.count.max (1))
+			from i := 1 until i > a_bytes.count loop
+				Result.put_natural_8 (a_bytes.code (i).to_natural_8, i - 1)
+				i := i + 1
+			end
+		ensure
+			sized: Result.count >= a_bytes.count
+		end
+
+	bytes_string (a_buffer: MANAGED_POINTER; a_count: INTEGER): STRING_8
+			-- The first `a_count' bytes of `a_buffer' as a STRING_8.
+		require
+			in_range: a_count > 0 and a_count <= a_buffer.count
+		local
+			i: INTEGER
+		do
+			create Result.make (a_count)
+			from i := 0 until i >= a_count loop
+				Result.append_code (a_buffer.read_natural_8 (i))
+				i := i + 1
+			end
+		ensure
+			sized: Result.count = a_count
+		end
+
 feature {NONE} -- Externals (simple_encryption.h)
+
+	c_senc_dpapi_available: INTEGER
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_dpapi_available();"
+		end
+
+	c_senc_dpapi_protect (a_in: POINTER; a_inlen: INTEGER; a_ent: POINTER; a_entlen: INTEGER; a_out: POINTER; a_outcap: INTEGER): INTEGER
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_dpapi_protect((const unsigned char*)$a_in, (int)$a_inlen, (const unsigned char*)$a_ent, (int)$a_entlen, (unsigned char*)$a_out, (int)$a_outcap);"
+		end
+
+	c_senc_dpapi_unprotect (a_in: POINTER; a_inlen: INTEGER; a_ent: POINTER; a_entlen: INTEGER; a_out: POINTER; a_outcap: INTEGER): INTEGER
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_dpapi_unprotect((const unsigned char*)$a_in, (int)$a_inlen, (const unsigned char*)$a_ent, (int)$a_entlen, (unsigned char*)$a_out, (int)$a_outcap);"
+		end
 
 	c_senc_has_native: INTEGER
 		external

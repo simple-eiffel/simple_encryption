@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-09-01
+
+### Added
+
+- **DPAPI (Windows per-user data protection):** `dpapi_protect` seals bytes to the current Windows user on this machine (`CryptProtectData`, UI forbidden, optional extra entropy), `dpapi_unprotect` unseals them, `is_dpapi_available` reports the platform. Failures — wrong user, wrong entropy, tampered blob, non-Windows — are `Void`, never an exception; the OS output buffer is zeroed and freed on every path. Built for simple_chat's remembered-session token, which must never touch disk in clear.
+
 ## [2.0.0] - 2026-08-29
 
 ### Security
