@@ -32,6 +32,30 @@
 		<setting name="console_application" value="true"/>
 		<library name="simple_testing" location="$SIMPLE_EIFFEL/simple_testing/simple_testing.ecf"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing.ecf"/>
-		<cluster name="tests" location=".\testing\" recursive="true"/>
+		<cluster name="tests" location=".\testing\" recursive="true">
+			<file_rule>
+				<exclude>/scoop$</exclude>
+			</file_rule>
+		</cluster>
+	</target>
+
+	<!-- THE FREEZE ASSAULT (2.1.1). `c_senc_pbkdf2' is the one call in this library
+	     that is DELIBERATELY slow, and it was declared plain `external "C inline"'.
+	     ISE's collector stops every thread before it collects and cannot stop a
+	     thread inside an unmarked external, so the collection waited for the whole
+	     derivation and every OTHER processor waited with it at its next allocation -
+	     once per login. Proving that needs a second processor allocating while the
+	     first is inside the KDF, so this target is SCOOP where the others are
+	     threads. -->
+	<target name="simple_encryption_scoop_tests" extends="simple_encryption">
+		<root class="SCOOP_TEST_APP" feature="make"/>
+		<option warning="warning">
+			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
+		</option>
+		<setting name="console_application" value="true"/>
+		<capability>
+			<concurrency use="scoop"/>
+		</capability>
+		<cluster name="scoop_tests" location=".\testing\scoop\" recursive="true"/>
 	</target>
 </system>

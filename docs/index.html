@@ -34,6 +34,7 @@
                 <li>Random token generation from the OS CSPRNG - no PRNG fallback</li>
                 <li>2.0.0: native CNG backend (<code>BCryptHash</code>, <code>BCryptDeriveKeyPBKDF2</code>, <code>BCryptGenRandom</code>); <code>is_native</code> and <code>is_secure_random_available</code> report which path is live</li>
                 <li>2.1.0: DPAPI per-user data protection (<code>dpapi_protect</code> / <code>dpapi_unprotect</code>, <code>CryptProtectData</code> with UI forbidden and optional entropy; <code>is_dpapi_available</code>) — wrong user, wrong entropy, tampered blob and non-Windows all answer <code>Void</code>, never an exception</li>
+                <li>2.1.1: <code>c_senc_pbkdf2</code> is <code>external "C blocking inline"</code> and its buffers cross on the C heap &mdash; a key derivation, which is deliberately slow, no longer stops every other SCOOP processor's allocator for its whole duration</li>
             </ul>
         </section>
 
