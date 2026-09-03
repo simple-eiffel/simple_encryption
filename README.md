@@ -128,9 +128,34 @@ fixed, the library now runs on Windows CNG where available, and the suite
 carries the RFC vectors that would have caught it. Hashes written by earlier
 versions do not verify and must be re-created.
 
+## The blocking law - 2.1.1 (2026-09-02)
+
+ISE's garbage collector stops every thread of the system before it collects,
+and it cannot stop a thread inside a plain `external "C inline"` call: the
+collection waits for that call to return, and **every other processor waits
+with it, at its very next allocation**. Key stretching is the one place in a
+program where slowness is the feature, so `c_senc_pbkdf2` held the collector
+for the whole of every derivation - once per login on a simple_chat server.
+It is now `external "C blocking inline"`.
+
+That marker could not be added on its own. `pbkdf2_sha256_bytes` used to hand
+C the addresses of three Eiffel `SPECIAL` areas, which were safe only because
+the unmarked call made a collection impossible; the marker removes exactly
+that protection, and a collection may move an Eiffel object. The password,
+salt and derived key therefore cross on the C heap (`MANAGED_POINTER`), the
+password copy is zeroed before release, and the algorithm is unchanged - the
+RFC 8018 vectors and the leading-zero regression test still pass.
+
+**The rule, for anyone adding an external here:** one that hands C the address
+of an Eiffel area must NOT be marked `blocking`; one that is marked must hand
+C nothing but the C heap. `sha256`, `hmac` and `random` are microseconds and
+stay unmarked for that reason. See CHANGELOG 2.1.1, and the vector test in
+`simple_encryption_scoop_tests`.
+
 ## Security Notes
 
 - PBKDF2 uses 600,000 iterations by default (OWASP 2025 recommendation)
+- A derivation never stops another SCOOP processor's allocator (2.1.1)
 - Password verification uses constant-time comparison
 - Random generation uses the operating system's CSPRNG (Windows CNG `BCryptGenRandom`, or `/dev/urandom`); there is no pseudo-random fallback
 - On Windows, SHA-256, HMAC-SHA256 and PBKDF2 run on CNG (`bcrypt.dll`); elsewhere the portable Eiffel implementation is used, and both are held to the same known-answer vectors

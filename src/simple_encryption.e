@@ -202,16 +202,89 @@ feature -- Password Hashing (PBKDF2)
 	pbkdf2_sha256_bytes (a_password: STRING; a_salt: SPECIAL [NATURAL_8]; a_iterations, a_key_length: INTEGER): SPECIAL [NATURAL_8]
 			-- Derive key from password using PBKDF2-SHA256 (RFC 8018).
 			-- Returns raw bytes.
+			--
+			-- EVERY BUFFER CROSSES ON THE C HEAP, and that is load-bearing.
+			-- `c_senc_pbkdf2' is marked `blocking' (2.1.1) because a
+			-- derivation is deliberately slow and an unmarked slow external
+			-- stops ISE's collector - and with it every other processor - for
+			-- its whole duration. The marker LETS a collection run while the
+			-- C code is still working, and a collection may MOVE an Eiffel
+			-- object. This routine used to hand C the addresses of three
+			-- Eiffel-collected areas (`a_password.area', `a_salt' and the
+			-- `Result' SPECIAL); those addresses were safe only ACCIDENTALLY,
+			-- because the unmarked call made a collection impossible. Marking
+			-- the call without moving the buffers would have traded a freeze
+			-- for memory corruption. So the password and salt are copied into
+			-- MANAGED_POINTERs on the C heap, the key is derived into a
+			-- third, and the bytes are copied back afterwards - the same
+			-- shape `dpapi_protect' already used.
+			--
+			-- The copies cost microseconds against a KDF measured in
+			-- hundreds of milliseconds, and the C-heap password copy is
+			-- wiped before it is released.
 		require
 			password_not_empty: not a_password.is_empty
 			salt_not_void: a_salt /= Void
 			iterations_positive: a_iterations > 0
 			key_length_positive: a_key_length > 0
+		local
+			l_pw, l_salt, l_key: MANAGED_POINTER
+			l_ok: BOOLEAN
+			i: INTEGER
 		do
 			create Result.make_filled (0, a_key_length)
-			if not is_native or else c_senc_pbkdf2 (a_password.area.base_address, a_password.count,
-				a_salt.base_address, a_salt.count, a_iterations.to_natural_64, Result.base_address, a_key_length) /= 1
-			then
+			if is_native then
+				create l_pw.make (a_password.count.max (1))
+				from
+					i := 0
+				until
+					i >= a_password.count
+				loop
+					l_pw.put_natural_8 (a_password.item (i + 1).code.to_natural_8, i)
+					i := i + 1
+				variant
+					a_password.count - i
+				end
+				create l_salt.make (a_salt.count.max (1))
+				from
+					i := 0
+				until
+					i >= a_salt.count
+				loop
+					l_salt.put_natural_8 (a_salt [i], i)
+					i := i + 1
+				variant
+					a_salt.count - i
+				end
+				create l_key.make (a_key_length)
+				l_ok := c_senc_pbkdf2 (l_pw.item, a_password.count,
+					l_salt.item, a_salt.count, a_iterations.to_natural_64, l_key.item, a_key_length) = 1
+				if l_ok then
+					from
+						i := 0
+					until
+						i >= a_key_length
+					loop
+						Result [i] := l_key.read_natural_8 (i)
+						i := i + 1
+					variant
+						a_key_length - i
+					end
+				end
+					-- Never leave a password lying on the C heap for the
+					-- allocator to hand to the next caller.
+				from
+					i := 0
+				until
+					i >= l_pw.count
+				loop
+					l_pw.put_natural_8 (0, i)
+					i := i + 1
+				variant
+					l_pw.count - i
+				end
+			end
+			if not l_ok then
 				Result := pbkdf2_sha256_bytes_portable (a_password, a_salt, a_iterations, a_key_length)
 			end
 		ensure
@@ -630,6 +703,15 @@ feature {NONE} -- Externals (simple_encryption.h)
 		end
 
 	c_senc_sha256 (a_data: POINTER; a_len: INTEGER; a_out: POINTER): INTEGER
+			-- Deliberately NOT `blocking', and its callers deliberately still
+			-- pass `base_address' of Eiffel areas. One SHA-256 pass over a
+			-- message is microseconds - there is no stall worth reclaiming -
+			-- and leaving the call unmarked is exactly what keeps those raw
+			-- addresses safe: no collection can begin while the thread is
+			-- inside it. The rule for this library: an external that hands C
+			-- an Eiffel address must NOT be marked, and an external that is
+			-- marked must hand C nothing but the C heap. `c_senc_hmac' and
+			-- `c_senc_random' are unmarked for the same reason.
 		external
 			"C inline use %"simple_encryption.h%""
 		alias
@@ -644,8 +726,24 @@ feature {NONE} -- Externals (simple_encryption.h)
 		end
 
 	c_senc_pbkdf2 (a_pw: POINTER; a_pwlen: INTEGER; a_salt: POINTER; a_saltlen: INTEGER; a_iterations: NATURAL_64; a_out: POINTER; a_outlen: INTEGER): INTEGER
+			-- Key stretching: DELIBERATELY slow, 0.1-2 s at production
+			-- iteration counts and the only call in this library whose
+			-- slowness is the point.
+			--
+			-- `blocking' (2.1.1) because ISE's collector stops every thread
+			-- of the system before it collects and cannot stop a thread
+			-- inside an unmarked external: the collection waits out the whole
+			-- derivation, and every other processor waits with it at its next
+			-- allocation. On a simple_chat server that is once per login.
+			--
+			-- SAFE ONLY BECAUSE THE BUFFERS MOVED. `pbkdf2_sha256_bytes'
+			-- passes three MANAGED_POINTERs - the C heap - where it used to
+			-- pass `base_address' of the password's area, the salt SPECIAL
+			-- and the result SPECIAL. Those are Eiffel-collected, and the
+			-- collection this marker permits may move them. The marker and
+			-- the copy are one change; neither is correct without the other.
 		external
-			"C inline use %"simple_encryption.h%""
+			"C blocking inline use %"simple_encryption.h%""
 		alias
 			"return senc_pbkdf2_sha256((const unsigned char*)$a_pw, (int)$a_pwlen, (const unsigned char*)$a_salt, (int)$a_saltlen, (unsigned long long)$a_iterations, (unsigned char*)$a_out, (int)$a_outlen);"
 		end
