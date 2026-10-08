@@ -353,6 +353,41 @@ feature -- Known-answer vectors (2.0.0)
 			end
 		end
 
+feature -- Quick facade tests
+
+	test_quick_password_round_trip
+			-- Quick facade: a hashed password verifies, a wrong one does not,
+			-- and two hashes of one password differ (random salt).
+		local
+			l_quick: SIMPLE_ENCRYPTION_QUICK
+			l_hash, l_hash2: STRING
+		do
+			create l_quick.make
+			l_hash := l_quick.hash_password ("correct horse")
+			l_hash2 := l_quick.hash_password ("correct horse")
+			assert_true ("verifies", l_quick.verify_password ("correct horse", l_hash))
+			assert_false ("wrong password fails", l_quick.verify_password ("wrong horse", l_hash))
+			assert_false ("salts differ", l_hash.same_string (l_hash2))
+			assert_true ("verifies second", l_quick.verify_password ("correct horse", l_hash2))
+		end
+
+	test_quick_random_tokens_differ
+			-- Quick facade tokens come from the system CSPRNG: right length,
+			-- hex only, never repeated (a clock seed repeats within a tick).
+		local
+			l_quick: SIMPLE_ENCRYPTION_QUICK
+			l_a, l_b, l_c: STRING
+		do
+			create l_quick.make
+			l_a := l_quick.random_token (32)
+			l_b := l_quick.random_token (32)
+			l_c := l_quick.random_token (7)
+			assert_integers_equal ("length", 32, l_a.count)
+			assert_integers_equal ("odd length", 7, l_c.count)
+			assert_false ("tokens differ", l_a.same_string (l_b))
+			assert_true ("hex only", across l_a as ic all ic.is_hexa_digit end)
+		end
+
 feature {NONE} -- Helpers (2.0.0)
 
 	ascii_bytes (a_text: STRING): SPECIAL [NATURAL_8]

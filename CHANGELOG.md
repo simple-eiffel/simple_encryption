@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.2] - 2026-10-08
+
+### Fixed
+
+- **`SIMPLE_ENCRYPTION_QUICK` compiles, and its tokens are cryptographically
+  random.** The facade (added in `6ec1dac`) never compiled: it called
+  `pbkdf2_sha256` with the pre-2.0.0 two-argument signature and a nonexistent
+  `SIMPLE_DATE_TIME.millisecond`. That broke every client that pulls in the
+  library cluster (simple_chat's library target had 3 VEEN/VUAR errors).
+  `hash_password` and `verify_password` now delegate to
+  `SIMPLE_ENCRYPTION.hash_password` / `verify_password`
+  (`salt$iterations$hash`). Because the facade never compiled, no hash in its
+  old `salt:hash` format can exist, so nothing needs migrating.
+  `random_token`, `random_bytes` and the internal `random_hex` were seeded
+  from the clock into ISE's `RANDOM`; they now draw from the OS CSPRNG
+  (`SIMPLE_ENCRYPTION.random_hex`, CNG `BCryptGenRandom`). `generate_seed` is
+  removed. Two new tests: password round trip and token uniqueness.
+
 ## [2.1.1] - 2026-09-02
 
 ### Fixed

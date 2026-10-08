@@ -51,20 +51,17 @@ feature -- Password Hashing (Use for user passwords)
 	hash_password (a_password: STRING): STRING
 			-- Hash password for secure storage.
 			-- Uses PBKDF2 with random salt - safe for database storage.
-			-- Returns: "salt:hash" format string.
+			-- Returns: the "salt$iterations$hash" string of
+			-- `SIMPLE_ENCRYPTION.hash_password'.
 		require
 			password_not_empty: not a_password.is_empty
-		local
-			l_salt, l_hash: STRING
 		do
 			logger.debug_log ("Hashing password")
-			l_salt := random_hex (32)  -- 16 bytes = 32 hex chars
-			l_hash := crypto.pbkdf2_sha256 (a_password, l_salt)
-			Result := l_salt + ":" + l_hash
+			Result := crypto.hash_password (a_password)
 			logger.debug_log ("Password hashed successfully")
 		ensure
 			result_not_empty: not Result.is_empty
-			has_separator: Result.has (':')
+			has_separator: Result.has ('$')
 		end
 
 	verify_password (a_password: STRING; a_stored_hash: STRING): BOOLEAN
@@ -73,19 +70,10 @@ feature -- Password Hashing (Use for user passwords)
 		require
 			password_not_empty: not a_password.is_empty
 			hash_not_empty: not a_stored_hash.is_empty
-			hash_has_salt: a_stored_hash.has (':')
-		local
-			l_parts: LIST [STRING]
-			l_salt, l_expected_hash, l_actual_hash: STRING
+			hash_has_salt: a_stored_hash.has ('$')
 		do
 			logger.debug_log ("Verifying password")
-			l_parts := a_stored_hash.split (':')
-			if l_parts.count >= 2 then
-				l_salt := l_parts.first
-				l_expected_hash := l_parts.last
-				l_actual_hash := crypto.pbkdf2_sha256 (a_password, l_salt)
-				Result := constant_time_compare (l_expected_hash, l_actual_hash)
-			end
+			Result := crypto.verify_password (a_password, a_stored_hash)
 			if Result then
 				logger.debug_log ("Password verified successfully")
 			else
@@ -174,16 +162,22 @@ feature -- Random Generation
 			positive_length: a_length > 0
 		local
 			l_chars: STRING
-			l_random: RANDOM
-			i: INTEGER
+			l_bytes: SPECIAL [NATURAL_8]
+			l_limit, i: INTEGER
 		do
 			l_chars := "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789"  -- No confusing chars
-			create l_random.set_seed (generate_seed)
+			-- Bytes from the OS CSPRNG; values at or above the largest
+			-- multiple of the alphabet size are discarded (no modulo bias).
+			l_limit := (256 // l_chars.count) * l_chars.count
 			create Result.make (a_length)
-			from i := 1 until i > a_length loop
-				l_random.forth
-				Result.append_character (l_chars.item ((l_random.item \\ l_chars.count) + 1))
-				i := i + 1
+			from until Result.count = a_length loop
+				l_bytes := crypto.secure_random (a_length)
+				from i := 0 until i >= l_bytes.count or Result.count = a_length loop
+					if l_bytes [i].to_integer_32 < l_limit then
+						Result.append_character (l_chars.item ((l_bytes [i].to_integer_32 \\ l_chars.count) + 1))
+					end
+					i := i + 1
+				end
 			end
 		ensure
 			correct_length: Result.count = a_length
@@ -252,29 +246,16 @@ feature {NONE} -- Implementation
 		end
 
 	random_hex (a_length: INTEGER): STRING
-			-- Generate random hex string.
-		local
-			l_random: RANDOM
-			i: INTEGER
-			l_chars: STRING
+			-- `a_length' random hex characters drawn from the operating
+			-- system CSPRNG (via `SIMPLE_ENCRYPTION.random_hex'). Tokens and
+			-- salts built on this must never come from a clock-seeded PRNG.
 		do
-			l_chars := "0123456789abcdef"
-			create l_random.set_seed (generate_seed)
-			create Result.make (a_length)
-			from i := 1 until i > a_length loop
-				l_random.forth
-				Result.append_character (l_chars.item ((l_random.item \\ 16) + 1))
-				i := i + 1
+			Result := crypto.random_hex ((a_length + 1) // 2)
+			if Result.count > a_length then
+				Result.keep_head (a_length)
 			end
-		end
-
-	generate_seed: INTEGER
-			-- Generate seed from current time and process info.
-		local
-			l_dt: SIMPLE_DATE_TIME
-		do
-			create l_dt.make_now
-			Result := l_dt.to_timestamp.to_integer_32.bit_xor (l_dt.millisecond)
+		ensure
+			correct_length: Result.count = a_length
 		end
 
 	hex_char_to_int (c: CHARACTER): INTEGER

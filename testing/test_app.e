@@ -39,6 +39,8 @@ feature {NONE} -- Initialization
 			run_test (agent tests.test_sha256_leading_zero, "test_sha256_leading_zero")
 			run_test (agent tests.test_portable_agrees_with_native, "test_portable_agrees_with_native")
 			run_test (agent tests.test_secure_random_is_system_source, "test_secure_random_is_system_source")
+			run_test (agent tests.test_quick_password_round_trip, "test_quick_password_round_trip")
+			run_test (agent tests.test_quick_random_tokens_differ, "test_quick_random_tokens_differ")
 
 			print ("%N========================%N")
 			print ("Results: " + passed.out + " passed, " + failed.out + " failed%N")
