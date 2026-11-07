@@ -5,8 +5,8 @@ note
 
 		Two implementations sit behind one interface. On Windows the work
 		is done by the operating system's Cryptography API: Next Generation
-		(bcrypt.dll) - fast, maintained by Microsoft, nothing to ship. Where
-		that is absent the portable Eiffel implementation over ISE's EEL
+		(bcrypt.dll) - fast, maintained by Microsoft, nothing to ship - and on
+		macOS by CommonCrypto, likewise. Where neither is present the portable Eiffel implementation over ISE's EEL
 		library is used. The test suite holds both to the same known-answer
 		vectors and cross-checks them against each other.
 	]"

@@ -86,6 +86,96 @@ static int senc_pbkdf2_sha256(const unsigned char *pw, int pwlen,
     return ok;
 }
 
+#elif defined(__APPLE__)
+/* ============ macOS: CommonCrypto ============ */
+/* The same job CNG does on Windows, and as fast: PBKDF2 at the default 600,000
+   iterations takes a moment here, against minutes in the portable Eiffel. */
+
+#include <CommonCrypto/CommonDigest.h>
+#include <CommonCrypto/CommonHMAC.h>
+#include <CommonCrypto/CommonKeyDerivation.h>
+#include <CommonCrypto/CommonRandom.h>
+
+static int senc_has_native(void) { return 1; }
+
+/* The system's CSPRNG. Nothing else qualifies. */
+static int senc_random(unsigned char *buf, int n) {
+    if (!buf || n <= 0) return 0;
+    if (CCRandomGenerateBytes(buf, (size_t)n) != kCCSuccess) {
+        memset(buf, 0, (size_t)n);
+        return 0;
+    }
+    return 1;
+}
+
+static int senc_sha256(const unsigned char *data, int len, unsigned char out[32]) {
+    return CC_SHA256(data, (CC_LONG)len, out) != NULL ? 1 : 0;
+}
+
+static int senc_hmac_sha256(const unsigned char *key, int keylen,
+                            const unsigned char *data, int len, unsigned char out[32]) {
+    CCHmac(kCCHmacAlgSHA256, key, (size_t)keylen, data, (size_t)len, out);
+    return 1;
+}
+
+static int senc_pbkdf2_sha256(const unsigned char *pw, int pwlen,
+                              const unsigned char *salt, int saltlen,
+                              unsigned long long iterations,
+                              unsigned char *out, int outlen) {
+    if (iterations == 0 || iterations > 0xFFFFFFFFULL) return 0;
+    return CCKeyDerivationPBKDF(kCCPBKDF2, (const char *)pw, (size_t)pwlen, salt, (size_t)saltlen,
+                                kCCPRFHmacAlgSHA256, (unsigned int)iterations, out, (size_t)outlen) == kCCSuccess ? 1 : 0;
+}
+
+#elif defined(__linux__)
+/* ============ Linux: OpenSSL libcrypto ============ */
+/* The same job CNG and CommonCrypto do. Random bytes come straight from the
+   kernel, so they do not depend on OpenSSL's generator being seeded. */
+
+#include <errno.h>
+#include <limits.h>
+#include <openssl/evp.h>
+#include <openssl/hmac.h>
+#include <sys/random.h>
+
+static int senc_has_native(void) { return 1; }
+
+/* The kernel CSPRNG. Nothing else qualifies. */
+static int senc_random(unsigned char *buf, int n) {
+    size_t done = 0;
+    if (!buf || n <= 0) return 0;
+    while (done < (size_t)n) {
+        ssize_t got = getrandom(buf + done, (size_t)n - done, 0);
+        if (got < 0) {
+            if (errno == EINTR) continue;
+            memset(buf, 0, (size_t)n);
+            return 0;
+        }
+        done += (size_t)got;
+    }
+    return 1;
+}
+
+static int senc_sha256(const unsigned char *data, int len, unsigned char out[32]) {
+    unsigned int size = 0;
+    return EVP_Digest(data, (size_t)len, out, &size, EVP_sha256(), NULL) == 1 && size == 32 ? 1 : 0;
+}
+
+static int senc_hmac_sha256(const unsigned char *key, int keylen,
+                            const unsigned char *data, int len, unsigned char out[32]) {
+    unsigned int size = 0;
+    return HMAC(EVP_sha256(), key, keylen, data, (size_t)len, out, &size) != NULL && size == 32 ? 1 : 0;
+}
+
+static int senc_pbkdf2_sha256(const unsigned char *pw, int pwlen,
+                              const unsigned char *salt, int saltlen,
+                              unsigned long long iterations,
+                              unsigned char *out, int outlen) {
+    if (iterations == 0 || iterations > (unsigned long long)INT_MAX) return 0;
+    return PKCS5_PBKDF2_HMAC((const char *)pw, pwlen, salt, saltlen, (int)iterations,
+                             EVP_sha256(), outlen, out) == 1 ? 1 : 0;
+}
+
 #else
 /* ============ OTHER PLATFORMS ============ */
 
