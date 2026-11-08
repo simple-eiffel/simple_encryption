@@ -331,6 +331,50 @@ feature -- Known-answer vectors (2.0.0)
 			end
 		end
 
+	test_session_seal_round_trip
+			-- A seal hides the text and opens to it again; an empty text seals too; two seals
+			-- of one text differ (a fresh nonce each time).
+		local
+			crypto: SIMPLE_ENCRYPTION
+			k: MANAGED_POINTER
+			l_text, l_sealed, l_again: STRING_8
+		do
+			create crypto.make
+			if crypto.is_session_seal_available then
+				k := crypto.new_session_key
+				l_text := {UTF_CONVERTER}.string_32_to_utf_8_string_8 ({STRING_32} "Name 1%/31/בְּרֵאשִׁית%/31/2026-11-08")
+				l_sealed := crypto.session_seal (k, l_text)
+				assert_true ("sized", l_sealed.count = l_text.count + crypto.session_overhead)
+				assert_true ("hidden", not l_sealed.has_substring ("Name"))
+				assert_true ("opens", attached crypto.session_open (k, l_sealed) as al and then al.same_string (l_text))
+				l_again := crypto.session_seal (k, l_text)
+				assert_true ("a fresh nonce each time", not l_again.same_string (l_sealed))
+				assert_true ("empty text", attached crypto.session_open (k, crypto.session_seal (k, "")) as al and then al.is_empty)
+				crypto.wipe_session_key (k)
+			end
+		end
+
+	test_session_seal_refuses_tampering
+			-- An altered byte, another key and a short input all open to Void.
+		local
+			crypto: SIMPLE_ENCRYPTION
+			k, l_other: MANAGED_POINTER
+			l_sealed, l_altered: STRING_8
+		do
+			create crypto.make
+			if crypto.is_session_seal_available then
+				k := crypto.new_session_key
+				l_other := crypto.new_session_key
+				l_sealed := crypto.session_seal (k, "the row's text")
+				l_altered := l_sealed.twin
+				l_altered.put_code (l_altered.code (20).bit_xor (1), 20)
+				assert_true ("altered: refused", crypto.session_open (k, l_altered) = Void)
+				assert_true ("another key: refused", crypto.session_open (l_other, l_sealed) = Void)
+				assert_true ("short: refused", crypto.session_open (k, l_sealed.substring (1, crypto.session_overhead - 1)) = Void)
+				assert_true ("intact: opens", attached crypto.session_open (k, l_sealed) as al and then al.same_string ("the row's text"))
+			end
+		end
+
 	test_secure_random_is_system_source
 			-- Bytes come from the operating system's CSPRNG, never a PRNG:
 			-- the source must be available, and sixty-four 16-byte draws

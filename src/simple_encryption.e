@@ -351,6 +351,95 @@ feature -- Random Generation
 			result_length: Result.count = a_length
 		end
 
+feature -- Session seal
+
+	is_session_seal_available: BOOLEAN
+			-- Can `session_seal' work here? macOS (AES-256-CTR with HMAC-SHA-256,
+			-- encrypt-then-MAC, from CommonCrypto) and Linux (AES-256-GCM from OpenSSL) can;
+			-- Windows (BCrypt AES-256-GCM) is to come.
+		do
+			Result := c_senc_session_available = 1
+		end
+
+	Session_key_bytes: INTEGER = 64
+			-- The size of a session key.
+
+	session_overhead: INTEGER
+			-- How many bytes a seal adds (its nonce and tag).
+		do
+			Result := c_senc_session_overhead
+		end
+
+	new_session_key: MANAGED_POINTER
+			-- A new key for one session's seals: `Session_key_bytes' from the system's secure
+			-- random source, on the C heap. It is meant to stay in memory and never be written
+			-- anywhere: a seal is for data that only this run of the program reads back (a
+			-- scratch file of cached rows, say). `wipe_session_key' when done.
+		require
+			available: is_session_seal_available
+			source_available: is_secure_random_available
+		do
+			create Result.make (Session_key_bytes)
+			if c_senc_random (Result.item, Session_key_bytes) /= 1 then
+				(create {EXCEPTIONS}).raise ("SIMPLE_ENCRYPTION: secure random source unavailable")
+			end
+		ensure
+			sized: Result.count = Session_key_bytes
+		end
+
+	wipe_session_key (a_key: MANAGED_POINTER)
+			-- Overwrite `a_key' with zeros.
+		do
+			a_key.item.memory_set (0, a_key.count)
+		end
+
+	session_seal (a_key: MANAGED_POINTER; a_plain: READABLE_STRING_8): STRING_8
+			-- `a_plain' (bytes: UTF-8 for text) sealed under `a_key': secret, and refused by
+			-- `session_open' if altered. A fresh nonce each time, so one text never seals the
+			-- same way twice. The sealed form is this platform's own (see the class note on
+			-- `is_session_seal_available'), never meant to leave the machine.
+		require
+			available: is_session_seal_available
+			key_sized: a_key.count = Session_key_bytes
+		local
+			l_in, l_out: MANAGED_POINTER
+			n: INTEGER
+		do
+			l_in := buffer_of (a_plain)
+			create l_out.make (a_plain.count + session_overhead)
+			n := c_senc_session_seal (a_key.item, l_in.item, a_plain.count, l_out.item)
+			if n /= a_plain.count + session_overhead then
+				(create {EXCEPTIONS}).raise ("SIMPLE_ENCRYPTION: session seal failed")
+			end
+			Result := bytes_string (l_out, n)
+		ensure
+			sized: Result.count = a_plain.count + session_overhead
+		end
+
+	session_open (a_key: MANAGED_POINTER; a_sealed: READABLE_STRING_8): detachable STRING_8
+			-- What `session_seal' sealed in `a_sealed' under `a_key', or Void when `a_sealed' is
+			-- too short, was altered, or was sealed under another key.
+		require
+			available: is_session_seal_available
+			key_sized: a_key.count = Session_key_bytes
+		local
+			l_in, l_out: MANAGED_POINTER
+			n: INTEGER
+		do
+			if a_sealed.count >= session_overhead then
+				l_in := buffer_of (a_sealed)
+				create l_out.make ((a_sealed.count - session_overhead).max (1))
+				n := c_senc_session_open (a_key.item, l_in.item, a_sealed.count, l_out.item)
+				if n = 0 then
+					create Result.make_empty
+				elseif n > 0 then
+					Result := bytes_string (l_out, n)
+				end
+			end
+		ensure
+			sized: attached Result implies Result.count = a_sealed.count - session_overhead
+		end
+
 feature -- Portable implementation
 
 	sha256_bytes_portable (a_data: STRING): SPECIAL [NATURAL_8]
@@ -686,6 +775,35 @@ feature {NONE} -- Externals (simple_encryption.h)
 			"C inline use %"simple_encryption.h%""
 		alias
 			"return senc_dpapi_unprotect((const unsigned char*)$a_in, (int)$a_inlen, (const unsigned char*)$a_ent, (int)$a_entlen, (unsigned char*)$a_out, (int)$a_outcap);"
+		end
+
+	c_senc_session_available: INTEGER
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_session_available();"
+		end
+
+	c_senc_session_overhead: INTEGER
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_session_overhead();"
+		end
+
+	c_senc_session_seal (a_key, a_in: POINTER; a_inlen: INTEGER; a_out: POINTER): INTEGER
+			-- Unmarked: microseconds, and it is handed only the C heap.
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_session_seal((const unsigned char*)$a_key, (const unsigned char*)$a_in, (int)$a_inlen, (unsigned char*)$a_out);"
+		end
+
+	c_senc_session_open (a_key, a_in: POINTER; a_inlen: INTEGER; a_out: POINTER): INTEGER
+		external
+			"C inline use %"simple_encryption.h%""
+		alias
+			"return senc_session_open((const unsigned char*)$a_key, (const unsigned char*)$a_in, (int)$a_inlen, (unsigned char*)$a_out);"
 		end
 
 	c_senc_has_native: INTEGER
