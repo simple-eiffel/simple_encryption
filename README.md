@@ -13,6 +13,7 @@ Simple encryption and hashing wrapper for ISE EEL library with secure password h
 - Random token generation
 - Hex encoding utilities
 - DPAPI per-user data protection on Windows (`dpapi_protect` / `dpapi_unprotect`: seals bytes to the current user + machine, optional entropy; failures are `Void`, never exceptions)
+- Session seal (`session_seal` / `session_open`): authenticated encryption under a key that lives only in memory for one run of the program, for scratch data only that run reads back (simple_gui's row cache). AES-256-CTR with HMAC-SHA-256 (encrypt-then-MAC) on macOS; AES-256-GCM on Linux; Windows (BCrypt GCM) to come, until then `is_session_seal_available` is False. The sealed form is the platform's own and never leaves the machine; an altered byte or another key opens to `Void`.
 
 ## Installation
 
@@ -114,6 +115,10 @@ end
 | `random_token (length)` | URL-safe random token |
 | `bytes_to_hex (bytes)` | Convert to hex |
 | `hex_to_bytes (hex)` | Convert from hex |
+| `new_session_key` | 64 random bytes for one session's seals (C heap; keep in memory only) |
+| `session_seal (key, bytes)` | Seal bytes: secret, tamper-evident, a fresh nonce each time |
+| `session_open (key, sealed)` | The sealed bytes, or `Void` when altered, short or under another key |
+| `wipe_session_key (key)` | Overwrite a session key with zeros |
 
 ## Documentation
 

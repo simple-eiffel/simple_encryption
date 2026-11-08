@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-11-08
+
+### Added
+
+- **Session seal: `session_seal`, `session_open`, `new_session_key`,
+  `wipe_session_key`, `is_session_seal_available`, `session_overhead`.**
+  Authenticated encryption under a 64-byte key drawn from the system's secure
+  random source and held only in memory, for scratch data that the same run of
+  the program reads back (simple_gui's row cache, port-coordination
+  SIMPLE_GUI_SPEC.md 1f addendum). The sealed form is platform-local:
+  - macOS: AES-256-CTR (CommonCrypto) plus HMAC-SHA-256 over nonce and
+    ciphertext, encrypt-then-MAC, because CommonCrypto has no public GCM;
+  - Linux: AES-256-GCM (OpenSSL EVP);
+  - Windows: AES-256-GCM (BCrypt), to come; until then
+    `is_session_seal_available` is False.
+  An altered byte, a short input or another key opens to `Void`. Tests:
+  `test_session_seal_round_trip` and `test_session_seal_refuses_tampering`
+  (macOS 24 of 24; the CTR primitive also checked against NIST SP 800-38A
+  F.5.5, and the OpenSSL path built and checked on macOS against Homebrew's
+  OpenSSL).
+
 ## [2.1.2] - 2026-10-08
 
 ### Fixed
