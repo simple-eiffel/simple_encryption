@@ -331,6 +331,17 @@ feature -- Known-answer vectors (2.0.0)
 			end
 		end
 
+	test_session_seal_is_available
+			-- Windows (BCrypt GCM), Linux (OpenSSL GCM) and macOS (CommonCrypto CTR + HMAC) all
+			-- seal: the round-trip and tamper tests below are not vacuous anywhere.
+		local
+			crypto: SIMPLE_ENCRYPTION
+		do
+			create crypto.make
+			assert_true ("available", crypto.is_session_seal_available)
+			assert_true ("an overhead", crypto.session_overhead > 0)
+		end
+
 	test_session_seal_round_trip
 			-- A seal hides the text and opens to it again; an empty text seals too; two seals
 			-- of one text differ (a fresh nonce each time).

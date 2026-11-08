@@ -20,6 +20,7 @@ feature {NONE} -- Initialization
 			failed := 0
 
 			run_test (agent tests.test_dpapi_round_trip, "test_dpapi_round_trip")
+			run_test (agent tests.test_session_seal_is_available, "test_session_seal_is_available")
 			run_test (agent tests.test_session_seal_round_trip, "test_session_seal_round_trip")
 			run_test (agent tests.test_session_seal_refuses_tampering, "test_session_seal_refuses_tampering")
 			run_test (agent tests.test_dpapi_wrong_entropy_and_tamper_fail, "test_dpapi_wrong_entropy_and_tamper_fail")

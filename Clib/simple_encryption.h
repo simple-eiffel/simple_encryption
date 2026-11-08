@@ -281,14 +281,87 @@ static int senc_dpapi_available(void) { return 0; }
      initial counter block, then HMAC-SHA-256 under key[32..63] over nonce || ciphertext
      (encrypt-then-MAC); a 32-byte tag.
    - Linux (OpenSSL EVP): AES-256-GCM under key[0..31], a random 12-byte nonce, a 16-byte tag.
-   - Windows (BCrypt AES-256-GCM, the Linux layout): not yet (PROD); `available' answers 0.
+   - Windows (BCrypt): AES-256-GCM under key[0..31], a random 12-byte nonce from
+     BCryptGenRandom, a 16-byte tag: the Linux layout.
    senc_session_seal writes inlen + senc_session_overhead() bytes and answers that count, or
    -1; senc_session_open answers the plain text's length, or -1 when the sealed bytes are
    short, altered or sealed under another key (nothing is written then that may be used). */
 
 #define SENC_SESSION_KEY_BYTES 64
 
-#if defined(__APPLE__) && !defined(SENC_SESSION_OPENSSL)
+#if defined(_WIN32) || defined(EIF_WINDOWS)
+/* bcrypt.h and windows.h are already included above for the Windows half. */
+
+#define SENC_SESSION_NONCE 12
+#define SENC_SESSION_TAG 16
+
+static int senc_session_available(void) { return 1; }
+static int senc_session_overhead(void) { return SENC_SESSION_NONCE + SENC_SESSION_TAG; }
+
+/* AES-256-GCM under key[0..31]: a key handle, its provider in `*alg' (both freed by
+   senc_session_gcm_done); NULL on failure. */
+static BCRYPT_KEY_HANDLE senc_session_gcm_key(const unsigned char *key, BCRYPT_ALG_HANDLE *alg) {
+    BCRYPT_KEY_HANDLE k = NULL;
+    *alg = NULL;
+    if (!NT_SUCCESS(BCryptOpenAlgorithmProvider(alg, BCRYPT_AES_ALGORITHM, NULL, 0))) return NULL;
+    if (!NT_SUCCESS(BCryptSetProperty(*alg, BCRYPT_CHAINING_MODE, (PUCHAR)BCRYPT_CHAIN_MODE_GCM,
+                                      sizeof(BCRYPT_CHAIN_MODE_GCM), 0))
+        || !NT_SUCCESS(BCryptGenerateSymmetricKey(*alg, &k, NULL, 0, (PUCHAR)key, 32, 0))) {
+        BCryptCloseAlgorithmProvider(*alg, 0);
+        *alg = NULL;
+        return NULL;
+    }
+    return k;
+}
+static void senc_session_gcm_done(BCRYPT_KEY_HANDLE k, BCRYPT_ALG_HANDLE alg) {
+    if (k) BCryptDestroyKey(k);
+    if (alg) BCryptCloseAlgorithmProvider(alg, 0);
+}
+
+static int senc_session_seal(const unsigned char *key, const unsigned char *in, int inlen, unsigned char *out) {
+    BCRYPT_ALG_HANDLE alg;
+    BCRYPT_KEY_HANDLE k;
+    BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO info;
+    ULONG done = 0;
+    NTSTATUS st;
+    if (!key || !out || inlen < 0 || (inlen > 0 && !in)) return -1;
+    if (!senc_random(out, SENC_SESSION_NONCE)) return -1;
+    k = senc_session_gcm_key(key, &alg);
+    if (!k) return -1;
+    BCRYPT_INIT_AUTH_MODE_INFO(info);
+    info.pbNonce = out;
+    info.cbNonce = SENC_SESSION_NONCE;
+    info.pbTag = out + SENC_SESSION_NONCE + inlen;
+    info.cbTag = SENC_SESSION_TAG;
+    st = BCryptEncrypt(k, (PUCHAR)in, (ULONG)inlen, &info, NULL, 0,
+                       out + SENC_SESSION_NONCE, (ULONG)inlen, &done, 0);
+    senc_session_gcm_done(k, alg);
+    return NT_SUCCESS(st) && (int)done == inlen ? inlen + senc_session_overhead() : -1;
+}
+
+static int senc_session_open(const unsigned char *key, const unsigned char *in, int inlen, unsigned char *out) {
+    BCRYPT_ALG_HANDLE alg;
+    BCRYPT_KEY_HANDLE k;
+    BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO info;
+    ULONG done = 0;
+    NTSTATUS st;
+    int n = inlen - senc_session_overhead();
+    if (!key || !in || n < 0 || (n > 0 && !out)) return -1;
+    k = senc_session_gcm_key(key, &alg);
+    if (!k) return -1;
+    BCRYPT_INIT_AUTH_MODE_INFO(info);
+    info.pbNonce = (PUCHAR)in;
+    info.cbNonce = SENC_SESSION_NONCE;
+    info.pbTag = (PUCHAR)(in + SENC_SESSION_NONCE + n);
+    info.cbTag = SENC_SESSION_TAG;
+    /* an altered byte or another key fails the tag check (STATUS_AUTH_TAG_MISMATCH) */
+    st = BCryptDecrypt(k, (PUCHAR)(in + SENC_SESSION_NONCE), (ULONG)n, &info, NULL, 0,
+                       out, (ULONG)n, &done, 0);
+    senc_session_gcm_done(k, alg);
+    return NT_SUCCESS(st) && (int)done == n ? n : -1;
+}
+
+#elif defined(__APPLE__) && !defined(SENC_SESSION_OPENSSL)
 #include <CommonCrypto/CommonCryptor.h>
 #include <CommonCrypto/CommonHMAC.h>
 #include <CommonCrypto/CommonRandom.h>
