@@ -353,7 +353,7 @@ feature -- Known-answer vectors (2.0.0)
 			create crypto.make
 			if crypto.is_session_seal_available then
 				k := crypto.new_session_key
-				l_text := {UTF_CONVERTER}.string_32_to_utf_8_string_8 ({STRING_32} "Name 1%/31/בְּרֵאשִׁית%/31/2026-11-08")
+				l_text := {UTF_CONVERTER}.string_32_to_utf_8_string_8 ({STRING_32} "Name 1%/31/%/1489/%/1456/%/1468/%/1512/%/1461/%/1488/%/1513/%/1460/%/1473/%/1497/%/1514/%/31/2026-11-08")
 				l_sealed := crypto.session_seal (k, l_text)
 				assert_true ("sized", l_sealed.count = l_text.count + crypto.session_overhead)
 				assert_true ("hidden", not l_sealed.has_substring ("Name"))
